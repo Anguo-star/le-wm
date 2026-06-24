@@ -3,9 +3,11 @@ from torch import nn
 import torch.nn.functional as F
 from einops import rearrange
 
+
 def modulate(x, shift, scale):
     """AdaLN-zero modulation"""
     return x * (1 + scale) + shift
+
 
 class SIGReg(torch.nn.Module):
     """Sketch Isotropic Gaussian Regularizer (single-GPU!)"""
@@ -33,8 +35,49 @@ class SIGReg(torch.nn.Module):
         x_t = (proj @ A).unsqueeze(-1) * self.t
         err = (x_t.cos().mean(-3) - self.phi).square() + x_t.sin().mean(-3).square()
         statistic = (err @ self.weights) * proj.size(-2)
-        return statistic.mean() # average over projections and time
-    
+        return statistic.mean()  # average over projections and time
+
+
+class WassersteinSIGReg(torch.nn.Module):
+    """Sliced-Wasserstein Gaussian regularizer (scale-aware SIGReg warmup).
+
+    Shares SIGReg's input convention (``proj: (T, B, D)``). Each random 1D
+    projection of the embeddings is compared against standard-normal quantiles
+    with the squared 2-Wasserstein distance. Unlike the Epps-Pulley ``SIGReg``,
+    whose fixed knots assume the input already sits near unit scale, this loss
+    has a scale-aware gradient that actively pulls each projected marginal onto
+    ``N(0, 1)`` regardless of its current scale. It is meant as a warmup that
+    fixes embedding scale so the Epps-Pulley SIGReg's knots become well-aligned
+    afterwards (see notes_lewm_bn_removal.md §3.1).
+    """
+
+    def __init__(self, num_proj=1024):
+        super().__init__()
+        self.num_proj = num_proj
+
+    def forward(self, proj):
+        """
+        proj: (T, B, D)
+        """
+        proj = proj.float()
+        # Treat the batch dimension as the sample dimension per time step (B
+        # samples), matching SIGReg which averages its statistic over B only.
+        sample_count = proj.size(1)
+        if sample_count < 2:
+            return proj.new_tensor(0.0)
+        # sample random projections (unit-norm directions)
+        A = torch.randn(proj.size(-1), self.num_proj, device=proj.device)
+        A = A.div_(A.norm(p=2, dim=0).clamp_min(torch.finfo(proj.dtype).eps))
+        # (T, B, num_proj): sort each projected marginal over B and match it to
+        # standard-normal quantiles; the final mean averages over T and num_proj.
+        projected = (proj @ A).sort(dim=1).values
+        quantile_positions = (
+            torch.arange(sample_count, device=proj.device, dtype=proj.dtype) + 0.5
+        ) / float(sample_count)
+        normal_quantiles = torch.erfinv(2.0 * quantile_positions - 1.0) * (2.0**0.5)
+        return (projected - normal_quantiles.view(1, sample_count, 1)).square().mean()
+
+
 class FeedForward(nn.Module):
     """FeedForward network used in Transformers"""
 
@@ -186,6 +229,7 @@ class Transformer(nn.Module):
             x = self.output_proj(x)
         return x
 
+
 class Embedder(nn.Module):
     def __init__(
         self,
@@ -239,6 +283,271 @@ class MLP(nn.Module):
         x: (B*T, D)
         """
         return self.net(x)
+
+
+def transition_pair_features(
+    z_t: torch.Tensor,
+    z_tp1: torch.Tensor,
+    *,
+    detach: bool = False,
+) -> torch.Tensor:
+    """Concatenate consecutive latent pairs for transition-level heads."""
+    if z_t.shape != z_tp1.shape:
+        raise ValueError(
+            f"z_t and z_tp1 must have the same shape, got {z_t.shape} vs {z_tp1.shape}"
+        )
+    if detach:
+        z_t = z_t.detach()
+        z_tp1 = z_tp1.detach()
+    return torch.cat([z_t, z_tp1], dim=-1)
+
+
+def inverse_dynamics_loss(
+    z_t: torch.Tensor,
+    z_tp1: torch.Tensor,
+    action: torch.Tensor,
+    head: nn.Module,
+    *,
+    detach_input: bool = False,
+) -> torch.Tensor:
+    """Predict the action that connects consecutive latent states."""
+    if z_t.numel() == 0:
+        return z_t.new_tensor(0.0)
+    pred_action = head(transition_pair_features(z_t, z_tp1, detach=detach_input))
+    if pred_action.shape != action.shape:
+        raise ValueError(
+            "inverse dynamics prediction and action target must have the same "
+            f"shape, got {pred_action.shape} vs {action.shape}"
+        )
+    return F.mse_loss(pred_action, action.float())
+
+
+def transition_distance_prediction_loss(
+    z_t: torch.Tensor,
+    z_tp1: torch.Tensor,
+    head: nn.Module,
+    *,
+    metric: str,
+    detach_input: bool = True,
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    """Predict consecutive-state latent distance as a diagnostic auxiliary."""
+    if z_t.numel() == 0:
+        empty = z_t.new_empty(z_t.shape[:-1])
+        return z_t.new_tensor(0.0), empty, empty
+
+    pred_dist = F.softplus(
+        head(transition_pair_features(z_t, z_tp1, detach=detach_input)).squeeze(-1)
+    )
+
+    if metric == "l2":
+        target_dist = torch.linalg.vector_norm(z_tp1 - z_t, dim=-1)
+    elif metric == "cosine":
+        z_t_norm = F.normalize(z_t, dim=-1, eps=1e-8)
+        z_tp1_norm = F.normalize(z_tp1, dim=-1, eps=1e-8)
+        target_dist = 1.0 - (z_t_norm * z_tp1_norm).sum(dim=-1)
+    else:
+        raise ValueError(f"Unsupported transition distance metric: {metric}")
+
+    loss = F.smooth_l1_loss(pred_dist, target_dist.detach())
+    return loss, pred_dist, target_dist
+
+
+def cosine_pred_loss(pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+    """Prediction loss on the sphere: mean cosine distance.
+
+    pred, target: (B, T, D) — unit vectors on S^{d-1}.
+    Returns scalar in [0, 2]; 0 means perfect alignment.
+    """
+    return (1.0 - (pred * target).sum(dim=-1)).mean()
+
+
+def temporal_hinge_loss(
+    z_t: torch.Tensor,
+    z_tp1: torch.Tensor,
+    *,
+    margin: float,
+    metric: str,
+    squared: bool = True,
+) -> torch.Tensor:
+    """Upper hinge loss on consecutive latent pairs.
+
+    z_t, z_tp1: (..., D) consecutive latent embeddings with matching shapes.
+    metric:
+      - "l2": Euclidean distance in R^d
+      - "cosine": cosine distance 1 - cos(z_t, z_tp1), suitable for unit vectors
+
+    This encourages consecutive latents to stay close, but stops rewarding
+    them once their distance is already below the margin:
+      max(0, distance(z_t, z_{t+1}) - margin)
+    """
+    if z_t.shape != z_tp1.shape:
+        raise ValueError(
+            f"z_t and z_tp1 must have the same shape, got {z_t.shape} vs {z_tp1.shape}"
+        )
+    if margin < 0:
+        raise ValueError(f"margin must be >= 0, got {margin}")
+
+    if metric == "l2":
+        dist = torch.linalg.vector_norm(z_tp1 - z_t, dim=-1)
+    elif metric == "cosine":
+        z_t = F.normalize(z_t, dim=-1, eps=1e-8)
+        z_tp1 = F.normalize(z_tp1, dim=-1, eps=1e-8)
+        dist = 1.0 - (z_t * z_tp1).sum(dim=-1)
+    else:
+        raise ValueError(f"Unsupported temporal hinge metric: {metric}")
+
+    loss = torch.clamp_min(dist - margin, 0.0)
+    if squared:
+        loss = loss.square()
+    return loss.mean()
+
+
+def temporal_straightness(z: torch.Tensor) -> torch.Tensor:
+    """Mean cosine between consecutive latent displacement vectors.
+
+    z: (B, T, D) encoder outputs on real trajectories.
+    Returns a scalar; larger values mean temporally straighter trajectories.
+    """
+    if z.ndim != 3:
+        raise ValueError(f"z must have shape (B, T, D), got {z.shape}")
+    if z.size(1) < 3:
+        return z.new_tensor(0.0)
+
+    v = z[:, 1:] - z[:, :-1]  # (B, T-1, D)
+    v1 = v[:, :-1]  # (B, T-2, D)
+    v2 = v[:, 1:]  # (B, T-2, D)
+
+    denom = v1.norm(dim=-1) * v2.norm(dim=-1) + 1e-8
+    cos = (v1 * v2).sum(dim=-1) / denom
+    return cos.mean()
+
+
+def _pairwise_offdiag(x: torch.Tensor) -> torch.Tensor:
+    """Return all off-diagonal pairwise entries for a flattened batch."""
+    n = x.size(0)
+    mask = ~torch.eye(n, dtype=torch.bool, device=x.device)
+    return x[mask]
+
+
+def spread_loss(emb: torch.Tensor, margin: float) -> torch.Tensor:
+    """Anti-collapse loss: mean squared hinge on pairwise cosine similarity.
+
+    emb: (B, T, D) — unit vectors on S^{d-1}.
+    Computes mean_{i != j} max(0, <mu_i, mu_j> - m)^2.
+    Minimising this only penalises pairs whose cosine similarity exceeds the
+    configured margin.
+    """
+    z = emb.reshape(-1, emb.size(-1))  # (B*T, D)
+    sim = z @ z.T  # (B*T, B*T)
+    return torch.clamp_min(_pairwise_offdiag(sim) - margin, 0.0).square().mean()
+
+
+def _uniformity_pair_mask(
+    batch_size: int,
+    seq_len: int,
+    *,
+    mode: str,
+    temporal_exclusion: int,
+    device,
+) -> torch.Tensor:
+    """Return the pair mask used by uniformity regularization."""
+    if temporal_exclusion < 0:
+        raise ValueError("uniformity temporal_exclusion must be >= 0")
+
+    n = batch_size * seq_len
+    upper = torch.triu(torch.ones(n, n, dtype=torch.bool, device=device), diagonal=1)
+    if mode == "all_pairs":
+        return upper
+
+    batch_ids = torch.arange(batch_size, device=device).repeat_interleave(seq_len)
+    if mode == "cross_window":
+        return upper & (batch_ids[:, None] != batch_ids[None, :])
+
+    if mode == "temporal_masked":
+        time_ids = torch.arange(seq_len, device=device).repeat(batch_size)
+        near_temporal = (batch_ids[:, None] == batch_ids[None, :]) & (
+            (time_ids[:, None] - time_ids[None, :]).abs() <= temporal_exclusion
+        )
+        return upper & ~near_temporal
+
+    raise ValueError(f"Unsupported uniformity.mode: {mode}")
+
+
+def uniformity_loss(
+    emb: torch.Tensor,
+    t: float,
+    *,
+    mode: str = "all_pairs",
+    temporal_exclusion: int = 0,
+) -> torch.Tensor:
+    """Wang & Isola uniformity loss on unit-normalized embeddings.
+
+    emb: (B, T, D) — unit vectors on S^{d-1}.
+    Computes log mean exp(-t * ||mu_i - mu_j||^2) over a configurable subset
+    of flattened batch-time pairs.
+    """
+    z = emb.reshape(-1, emb.size(-1))  # (B*T, D)
+    if z.size(0) < 2:
+        return z.new_tensor(0.0)
+
+    sq_dists = torch.cdist(z, z, p=2).square()
+    mask = _uniformity_pair_mask(
+        emb.size(0),
+        emb.size(1),
+        mode=mode.lower(),
+        temporal_exclusion=temporal_exclusion,
+        device=z.device,
+    )
+    sq_dists = sq_dists[mask]
+    if sq_dists.numel() == 0:
+        return z.new_tensor(0.0)
+    return torch.exp(-t * sq_dists).mean().log()
+
+
+def infonce_loss(
+    pred: torch.Tensor, target: torch.Tensor, temperature: float
+) -> torch.Tensor:
+    """Symmetric batch-wise InfoNCE for next-step prediction.
+
+    pred: (B, T, D) predicted next-step embeddings
+    target: (B, T, D) ground-truth next-step embeddings
+
+    For each time step t and batch item b, this uses the aligned pair
+    (pred[b, t], target[b, t]) as the positive. The denominator contains:
+    - all cross-view samples at the same time step, and
+    - all same-view samples except self.
+
+    The loss is symmetric:
+      InfoNCE(pred, target) + InfoNCE(target, pred)
+    averaged over batch and time.
+    """
+    if pred.shape != target.shape:
+        raise ValueError(
+            f"pred and target must have the same shape, got {pred.shape} vs {target.shape}"
+        )
+    if temperature <= 0:
+        raise ValueError(f"temperature must be > 0, got {temperature}")
+
+    batch_size = pred.size(0)
+    if batch_size < 2:
+        return pred.new_tensor(0.0)
+
+    q = F.normalize(pred, dim=-1, eps=1e-8)
+    k = F.normalize(target, dim=-1, eps=1e-8)
+
+    labels = torch.arange(batch_size, device=pred.device)
+    labels = labels.unsqueeze(1).expand(-1, pred.size(1)).reshape(-1)
+    diag_mask = torch.eye(batch_size, dtype=torch.bool, device=pred.device).unsqueeze(1)
+    neg_inf = torch.tensor(-float("inf"), dtype=pred.dtype, device=pred.device)
+
+    def directional_loss(query: torch.Tensor, other: torch.Tensor) -> torch.Tensor:
+        cross_logits = torch.einsum("btd,jtd->btj", query, other) / temperature
+        same_logits = torch.einsum("btd,jtd->btj", query, query) / temperature
+        same_logits = same_logits.masked_fill(diag_mask, neg_inf)
+        logits = torch.cat([cross_logits, same_logits], dim=-1)  # (B, T, 2B)
+        return F.cross_entropy(logits.reshape(-1, logits.size(-1)), labels)
+
+    return 0.5 * (directional_loss(q, k) + directional_loss(k, q))
 
 
 class ARPredictor(nn.Module):

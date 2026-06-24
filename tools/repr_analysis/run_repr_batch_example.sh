@@ -16,10 +16,12 @@ set -euo pipefail
 
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 
-# STABLEWM_HOME=/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/lewm-tworooms
+# PAPER1_DATA_ROOT=dataset/ag_data/data/world_model/quentinll
+# STABLEWM_HOME=${PAPER1_DATA_ROOT}/lewm-tworooms
 # DATASET=tworoom
 
-STABLEWM_HOME="${STABLEWM_HOME:-/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/lewm-pusht}"
+PAPER1_DATA_ROOT="${PAPER1_DATA_ROOT:-dataset/ag_data/data/world_model/quentinll}"
+STABLEWM_HOME="${STABLEWM_HOME:-${PAPER1_DATA_ROOT}/lewm-pusht}"
 DATASET="${DATASET:-pusht_expert_train}"
 STATE_KEY="${STATE_KEY:-proprio}"
 EPOCH="${EPOCH:-9}"

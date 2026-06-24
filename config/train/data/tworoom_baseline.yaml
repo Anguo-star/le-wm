@@ -1,0 +1,13 @@
+# TwoRoom data config for external baseline training (PLDM, PreJEPA-noprop).
+
+dataset:
+  num_steps: ${eval:'${wm.num_preds} + ${wm.history_size}'}
+  frameskip: 5
+  name: tworoom
+  keys_to_load:
+    - pixels
+    - action
+    - proprio   # loaded but unused by PLDM.encode()
+  keys_to_cache:
+    - action
+    - proprio

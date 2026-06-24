@@ -7,8 +7,6 @@ world:
   env_name: swm/PushT-v1
   num_envs: ${eval.num_eval}
   max_episode_steps: ??? # make sure it's >= eval_budget
-  history_size: 1
-  frame_skip: 1
 
 dataset:
   stats: ${eval.dataset_name}
@@ -32,6 +30,13 @@ eval:
   eval_budget: 50
   img_size: 224
   dataset_name: pusht_expert_train
+  corruption:
+    type: gaussian_noise
+    kernel_size: 1     # gaussian_blur only; 1 = no-op (odd integer; smaller-than-1 becomes no-op)
+    factor: 1.0        # resize only; 1.0 = no-op
+    std: 0.0 # 0 disables; pixel-space std converted for ImageNet-normalized tensors
+    apply_to:
+      - pixels
   callables:
     # -- set state
     - method: _set_state

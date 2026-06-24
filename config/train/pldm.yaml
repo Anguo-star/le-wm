@@ -1,0 +1,125 @@
+# PLDM training config mirrored from upstream stable-worldmodel/scripts/train/
+# config/pldm.yaml, with three local additions:
+#   1. image_noise block (matches lewm.yaml convention) used by train_pldm.py.
+#   2. logger_backend / swanlab config (LeWM-style) so logging matches the
+#      rest of this repo.
+#   3. exp_name / subdir wiring for run naming.
+
+defaults:
+  - _self_
+  - launcher: local
+  - data: pusht_baseline           # override with `data=tworoom_baseline` etc.
+
+output_model_name: ???             # required at CLI, e.g. pusht_pldm_noise_0to006_p1
+exp_name: ${output_model_name}
+subdir: ${exp_name}
+
+seed: 3072
+num_workers: 6
+train_split: 0.9
+img_size: 224
+patch_size: 14
+encoder_scale: tiny
+encoder_resnet9: False
+train_value_function: False
+projector_loss_weight: 1.0e-3
+dump_object: True
+
+trainer:
+  max_epochs: 10
+  devices: auto
+  accelerator: gpu
+  precision: bf16
+  gradient_clip_val: 1.0
+
+loader:
+  batch_size: 128
+  num_workers: ${num_workers}
+  drop_last: True
+  persistent_workers: True
+  prefetch_factor: 3
+  pin_memory: True
+  shuffle: True
+
+optimizer:
+  type: AdamW
+  lr: 5.0e-5
+  weight_decay: 1.0e-3
+
+# Input-side per-frame Gaussian pixel noise (the noise-aware training knob).
+# Matches the convention used by train.py / lewm.yaml — same code path
+# (utils.AddNormalizedGaussianNoise + get_img_noise_transform).
+# Override at CLI, e.g.:
+#   python train_pldm.py exp_name=pusht_pldm_noise_0to006_p1 \
+#     image_noise.std_max=0.006 image_noise.noise_prob=1.0
+image_noise:
+  type: gaussian_noise
+  std_min: 0.0
+  std_max: 0.0
+  noise_prob: 1.0
+  apply_to_val: False
+
+# Logger (LeWM convention). The wandb section is preserved so that upstream's
+# `if cfg.wandb.enabled:` path also works if someone toggles backend.
+logger_backend: swanlab            # swanlab (default) or wandb
+swanlab:
+  enabled: True
+  config:
+    project: worldmodels
+    workspace: qunteam
+    experiment_name: ${exp_name}
+    logdir: logs/swanlab
+
+wandb:
+  enabled: True
+  config:
+    entity: qun-team
+    project: worldmodels
+    name: ${exp_name}
+    id: ${subdir}
+    resume: allow
+    log_model: False
+
+wm:
+  type: lewm
+  history_size: 3
+  num_preds: 1
+  embed_dim: 192
+  use_proprio: False               # NOTE: PLDM.encode() ignores proprio
+                                   # regardless; this flag is a no-op in the
+                                   # upstream implementation. Kept for
+                                   # forward-compat / config readability.
+
+predictor:
+  depth: 6
+  heads: 16
+  mlp_dim: 2048
+  dim_head: 64
+  dropout: 0.1
+  emb_dropout: 0.0
+
+loss:
+  sigreg:
+    enabled: true
+    weight: 0.0
+  temp_straight:
+    enabled: false
+    weight: 0.1
+  std:
+    enabled: true
+    weight: 18.0
+  std_t:
+    enabled: true
+    weight: 0.7
+  cov:
+    enabled: true
+    weight: 12.0
+  cov_t:
+    enabled: true
+    weight: 0.0
+  temp_align:
+    enabled: true
+    weight: 0.2
+  idm:
+    enabled: true
+    weight: 0.0

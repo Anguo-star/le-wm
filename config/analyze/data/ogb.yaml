@@ -1,0 +1,11 @@
+dataset:
+  num_steps: 1
+  frameskip: 5
+  name: ogbench/cube_single_expert
+  keys_to_load:
+    - pixels
+    - observation
+  keys_to_cache:
+    - observation
+  keys_to_merge:
+    proprio: proprio

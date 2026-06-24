@@ -8,6 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
+from tools.paper1_paths import task_dir
 from tools.repr_analysis.latent_noise_sensitivity import run_latent_noise_sensitivity
 
 
@@ -77,14 +78,14 @@ if __name__ == "__main__":
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     rerun_task(
-        Path("/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/lewm-tworooms"),
+        task_dir("lewm-tworooms"),
         "tworoom",
-        Path("/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/repr_analysis/latent_noise_diagnostics"),
+        task_dir("lewm-tworooms") / "repr_analysis" / "latent_noise_diagnostics",
         device,
     )
     rerun_task(
-        Path("/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/lewm-pusht"),
+        task_dir("lewm-pusht"),
         "pusht_expert_train",
-        Path("/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/lewm-pusht/repr_analysis/latent_noise_diagnostics"),
+        task_dir("lewm-pusht") / "repr_analysis" / "latent_noise_diagnostics",
         device,
     )

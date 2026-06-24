@@ -77,6 +77,9 @@ FORBIDDEN_SNIPPETS = [
     "same-state basin shrinkage is not monotone",
     "smaller same-state perturbation basin",
     "high-D basin support",
+    "/" + "home/ag/dataset/ag_data/data/world_model/quentinll",
+    "/" + "opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll",
+    "/" + "opt/huawei/explorer-env/dataset/ag_data/code/wm_exp",
 ]
 
 EXPECTED_TASKS = {"TwoRoom", "PushT", "Reacher", "Cube"}
@@ -157,7 +160,7 @@ def check_artifacts() -> None:
 
 def check_forbidden_text() -> None:
     hits: list[str] = []
-    for path in RELEASE_FILES:
+    for path in sorted(set(RELEASE_FILES + REQUIRED_ARTIFACTS)):
         text = path.read_text(encoding="utf-8")
         for snippet in FORBIDDEN_SNIPPETS:
             if snippet in text:

@@ -29,7 +29,7 @@
           "transition_resolution_ratio_cos": 0.40919581353958695,
           "transition_resolution_ratio_l2": 0.6394752214822821
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_baseline",
+        "path": "lewm-cube/ckpt/cube_pldm_baseline",
         "subdir": "cube_pldm_baseline"
       },
       "0.01": {
@@ -60,7 +60,7 @@
           "transition_resolution_ratio_cos": 0.4223343993811012,
           "transition_resolution_ratio_l2": 0.6402264282149366
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to001_p1",
+        "path": "lewm-cube/ckpt/cube_pldm_noise_0to001_p1",
         "subdir": "cube_pldm_noise_0to001_p1"
       },
       "0.02": {
@@ -91,7 +91,7 @@
           "transition_resolution_ratio_cos": 0.41905534620043067,
           "transition_resolution_ratio_l2": 0.639636534958047
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to002_p1",
+        "path": "lewm-cube/ckpt/cube_pldm_noise_0to002_p1",
         "subdir": "cube_pldm_noise_0to002_p1"
       },
       "0.03": {
@@ -122,7 +122,7 @@
           "transition_resolution_ratio_cos": 0.4194804495265602,
           "transition_resolution_ratio_l2": 0.6383632210341735
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to003_p1",
+        "path": "lewm-cube/ckpt/cube_pldm_noise_0to003_p1",
         "subdir": "cube_pldm_noise_0to003_p1"
       },
       "0.04": {
@@ -153,7 +153,7 @@
           "transition_resolution_ratio_cos": 0.4083153511784525,
           "transition_resolution_ratio_l2": 0.631302379783589
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to004_p1",
+        "path": "lewm-cube/ckpt/cube_pldm_noise_0to004_p1",
         "subdir": "cube_pldm_noise_0to004_p1"
       },
       "0.05": {
@@ -184,7 +184,7 @@
           "transition_resolution_ratio_cos": 0.4118979015880527,
           "transition_resolution_ratio_l2": 0.6309552380443137
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to005_p1",
+        "path": "lewm-cube/ckpt/cube_pldm_noise_0to005_p1",
         "subdir": "cube_pldm_noise_0to005_p1"
       },
       "0.06": {
@@ -215,7 +215,7 @@
           "transition_resolution_ratio_cos": 0.41471919486269765,
           "transition_resolution_ratio_l2": 0.6387443356833852
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to006_p1",
+        "path": "lewm-cube/ckpt/cube_pldm_noise_0to006_p1",
         "subdir": "cube_pldm_noise_0to006_p1"
       },
       "0.07": {
@@ -246,7 +246,7 @@
           "transition_resolution_ratio_cos": 0.41410247851636206,
           "transition_resolution_ratio_l2": 0.6357034488795409
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to007_p1",
+        "path": "lewm-cube/ckpt/cube_pldm_noise_0to007_p1",
         "subdir": "cube_pldm_noise_0to007_p1"
       },
       "0.08": {
@@ -277,7 +277,7 @@
           "transition_resolution_ratio_cos": 0.4179257483433363,
           "transition_resolution_ratio_l2": 0.6400744248166255
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to008_p1",
+        "path": "lewm-cube/ckpt/cube_pldm_noise_0to008_p1",
         "subdir": "cube_pldm_noise_0to008_p1"
       }
     },
@@ -310,7 +310,7 @@
           "transition_resolution_ratio_cos": 0.2196366885360957,
           "transition_resolution_ratio_l2": 0.47097684078915497
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_baseline",
+        "path": "lewm-pusht/ckpt/pusht_pldm_baseline",
         "subdir": "pusht_pldm_baseline"
       },
       "0.01": {
@@ -341,7 +341,7 @@
           "transition_resolution_ratio_cos": 0.23271220231591083,
           "transition_resolution_ratio_l2": 0.48833011851450414
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to001_p1",
+        "path": "lewm-pusht/ckpt/pusht_pldm_noise_0to001_p1",
         "subdir": "pusht_pldm_noise_0to001_p1"
       },
       "0.02": {
@@ -372,7 +372,7 @@
           "transition_resolution_ratio_cos": 0.2240464808823187,
           "transition_resolution_ratio_l2": 0.47515101072817323
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to002_p1",
+        "path": "lewm-pusht/ckpt/pusht_pldm_noise_0to002_p1",
         "subdir": "pusht_pldm_noise_0to002_p1"
       },
       "0.03": {
@@ -403,7 +403,7 @@
           "transition_resolution_ratio_cos": 0.22468367722907018,
           "transition_resolution_ratio_l2": 0.4777750871582666
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to003_p1",
+        "path": "lewm-pusht/ckpt/pusht_pldm_noise_0to003_p1",
         "subdir": "pusht_pldm_noise_0to003_p1"
       },
       "0.04": {
@@ -434,7 +434,7 @@
           "transition_resolution_ratio_cos": 0.23137812559970103,
           "transition_resolution_ratio_l2": 0.48427108855442774
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to004_p1",
+        "path": "lewm-pusht/ckpt/pusht_pldm_noise_0to004_p1",
         "subdir": "pusht_pldm_noise_0to004_p1"
       },
       "0.05": {
@@ -465,7 +465,7 @@
           "transition_resolution_ratio_cos": 0.2344693836293766,
           "transition_resolution_ratio_l2": 0.4853017317922192
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to005_p1",
+        "path": "lewm-pusht/ckpt/pusht_pldm_noise_0to005_p1",
         "subdir": "pusht_pldm_noise_0to005_p1"
       },
       "0.06": {
@@ -496,7 +496,7 @@
           "transition_resolution_ratio_cos": 0.23445597590125516,
           "transition_resolution_ratio_l2": 0.4859102823663883
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to006_p1",
+        "path": "lewm-pusht/ckpt/pusht_pldm_noise_0to006_p1",
         "subdir": "pusht_pldm_noise_0to006_p1"
       },
       "0.07": {
@@ -527,7 +527,7 @@
           "transition_resolution_ratio_cos": 0.23017614625811017,
           "transition_resolution_ratio_l2": 0.48318027242955114
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to007_p1",
+        "path": "lewm-pusht/ckpt/pusht_pldm_noise_0to007_p1",
         "subdir": "pusht_pldm_noise_0to007_p1"
       },
       "0.08": {
@@ -558,7 +558,7 @@
           "transition_resolution_ratio_cos": 0.23905341240342756,
           "transition_resolution_ratio_l2": 0.49099265735274406
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to008_p1",
+        "path": "lewm-pusht/ckpt/pusht_pldm_noise_0to008_p1",
         "subdir": "pusht_pldm_noise_0to008_p1"
       }
     },
@@ -591,7 +591,7 @@
           "transition_resolution_ratio_cos": 0.2548972507458058,
           "transition_resolution_ratio_l2": 0.5053363254562151
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_baseline",
+        "path": "lewm-reacher/ckpt/reacher_pldm_baseline",
         "subdir": "reacher_pldm_baseline"
       },
       "0.01": {
@@ -622,7 +622,7 @@
           "transition_resolution_ratio_cos": 0.23656081886351188,
           "transition_resolution_ratio_l2": 0.4889882362415983
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to001_p1",
+        "path": "lewm-reacher/ckpt/reacher_pldm_noise_0to001_p1",
         "subdir": "reacher_pldm_noise_0to001_p1"
       },
       "0.02": {
@@ -653,7 +653,7 @@
           "transition_resolution_ratio_cos": 0.2371603326989609,
           "transition_resolution_ratio_l2": 0.4863827831405038
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to002_p1",
+        "path": "lewm-reacher/ckpt/reacher_pldm_noise_0to002_p1",
         "subdir": "reacher_pldm_noise_0to002_p1"
       },
       "0.03": {
@@ -684,7 +684,7 @@
           "transition_resolution_ratio_cos": 0.2320564079677085,
           "transition_resolution_ratio_l2": 0.4823948160015986
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to003_p1",
+        "path": "lewm-reacher/ckpt/reacher_pldm_noise_0to003_p1",
         "subdir": "reacher_pldm_noise_0to003_p1"
       },
       "0.04": {
@@ -715,7 +715,7 @@
           "transition_resolution_ratio_cos": 0.2621107278367922,
           "transition_resolution_ratio_l2": 0.5103979523506087
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to004_p1",
+        "path": "lewm-reacher/ckpt/reacher_pldm_noise_0to004_p1",
         "subdir": "reacher_pldm_noise_0to004_p1"
       },
       "0.05": {
@@ -746,7 +746,7 @@
           "transition_resolution_ratio_cos": 0.26809776819061204,
           "transition_resolution_ratio_l2": 0.5177910114701316
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to005_p1",
+        "path": "lewm-reacher/ckpt/reacher_pldm_noise_0to005_p1",
         "subdir": "reacher_pldm_noise_0to005_p1"
       },
       "0.06": {
@@ -777,7 +777,7 @@
           "transition_resolution_ratio_cos": 0.2397896170621198,
           "transition_resolution_ratio_l2": 0.4886521757472698
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to006_p1",
+        "path": "lewm-reacher/ckpt/reacher_pldm_noise_0to006_p1",
         "subdir": "reacher_pldm_noise_0to006_p1"
       },
       "0.07": {
@@ -808,7 +808,7 @@
           "transition_resolution_ratio_cos": 0.2195237192869071,
           "transition_resolution_ratio_l2": 0.47018539239476
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to007_p1",
+        "path": "lewm-reacher/ckpt/reacher_pldm_noise_0to007_p1",
         "subdir": "reacher_pldm_noise_0to007_p1"
       },
       "0.08": {
@@ -839,7 +839,7 @@
           "transition_resolution_ratio_cos": 0.24407105794606315,
           "transition_resolution_ratio_l2": 0.4965409125988637
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to008_p1",
+        "path": "lewm-reacher/ckpt/reacher_pldm_noise_0to008_p1",
         "subdir": "reacher_pldm_noise_0to008_p1"
       }
     },
@@ -872,7 +872,7 @@
           "transition_resolution_ratio_cos": 0.669352064543873,
           "transition_resolution_ratio_l2": 0.8188217483897223
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_baseline",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_baseline",
         "subdir": "tworoom_pldm_baseline"
       },
       "0.01": {
@@ -903,7 +903,7 @@
           "transition_resolution_ratio_cos": 0.7294290223949201,
           "transition_resolution_ratio_l2": 0.8488939472521739
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to001_p1",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_noise_0to001_p1",
         "subdir": "tworoom_pldm_noise_0to001_p1"
       },
       "0.02": {
@@ -934,7 +934,7 @@
           "transition_resolution_ratio_cos": 0.7233070779900301,
           "transition_resolution_ratio_l2": 0.8446805230036759
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to002_p1",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_noise_0to002_p1",
         "subdir": "tworoom_pldm_noise_0to002_p1"
       },
       "0.03": {
@@ -965,7 +965,7 @@
           "transition_resolution_ratio_cos": 0.7231516788268247,
           "transition_resolution_ratio_l2": 0.8402725555659594
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to003_p1",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_noise_0to003_p1",
         "subdir": "tworoom_pldm_noise_0to003_p1"
       },
       "0.04": {
@@ -996,7 +996,7 @@
           "transition_resolution_ratio_cos": 0.7021733528153113,
           "transition_resolution_ratio_l2": 0.8384616005817387
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to004_p1",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_noise_0to004_p1",
         "subdir": "tworoom_pldm_noise_0to004_p1"
       },
       "0.05": {
@@ -1027,7 +1027,7 @@
           "transition_resolution_ratio_cos": 0.6963479604776629,
           "transition_resolution_ratio_l2": 0.8269911535342308
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to005_p1",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_noise_0to005_p1",
         "subdir": "tworoom_pldm_noise_0to005_p1"
       },
       "0.06": {
@@ -1058,7 +1058,7 @@
           "transition_resolution_ratio_cos": 0.6893687587332469,
           "transition_resolution_ratio_l2": 0.8254018986796154
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to006_p1",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_noise_0to006_p1",
         "subdir": "tworoom_pldm_noise_0to006_p1"
       },
       "0.07": {
@@ -1089,7 +1089,7 @@
           "transition_resolution_ratio_cos": 0.6865843220905821,
           "transition_resolution_ratio_l2": 0.8202733817833505
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to007_p1",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_noise_0to007_p1",
         "subdir": "tworoom_pldm_noise_0to007_p1"
       },
       "0.08": {
@@ -1120,7 +1120,7 @@
           "transition_resolution_ratio_cos": 0.6607638022802502,
           "transition_resolution_ratio_l2": 0.8078653568889148
         },
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to008_p1",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_noise_0to008_p1",
         "subdir": "tworoom_pldm_noise_0to008_p1"
       }
     }

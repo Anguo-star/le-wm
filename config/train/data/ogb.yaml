@@ -1,6 +1,6 @@
 dataset:
   name: ogbench/cube_single_expert
-  num_steps: ${eval:'${wm.num_preds} + ${wm.history_size}'}
+  num_steps: ${eval:'max(${wm.num_preds}, ${oc.select:loss.rollout.steps,0}) + ${wm.history_size}'}
   frameskip: 5
   keys_to_load:
     - pixels

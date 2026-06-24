@@ -1,0 +1,107 @@
+# PreJEPA (DINO-WM family) training config mirrored from upstream
+# stable-worldmodel/scripts/train/config/prejepa.yaml, with three additions:
+#   1. image_noise block (matches lewm.yaml / pldm.yaml convention).
+#   2. logger_backend / swanlab config (LeWM-style).
+#   3. exp_name / subdir wiring.
+#
+# Default configuration: **vision-only (no proprio)** — `wm.encoding` contains
+# only the action stream. This is the apples-to-apples comparison vs LeWM
+# (vision-only) and PLDM (vision-only) under our visual-OOD framing.
+#
+# Appendix variant: set `wm.encoding.proprio=10` at CLI to enable the with-prop
+# (original DINO-WM benchmark) configuration. Useful to show that visual perturbation
+# still hurts when an original proprio side-channel is present.
+
+defaults:
+  - _self_
+  - launcher: local
+
+exp_name: ???                       # required, e.g. pusht_dinowm_noprop_noise_0to006_p1
+output_model_name: ${exp_name}
+subdir: ${exp_name}
+
+# --- Data ---
+dataset_name: pusht_expert_train    # override at CLI for tworoom etc.
+cache_dir: null
+n_steps: ${eval:'${wm.num_preds} + ${wm.history_size}'}
+frameskip: 5
+
+batch_size: 32
+num_workers: 16
+train_split: 0.9
+seed: 42
+
+# --- Backbone (DINOv2 small) ---
+backbone:
+  name: facebook/dinov2-small
+  type: dinov2_small
+  is_video_encoder: false
+
+image_size: 224
+patch_size: 14
+
+# --- World model ---
+# **no-prop main config.** Only the action auxiliary encoder is present.
+# To enable the with-prop variant, override at CLI with
+# `wm.encoding.proprio=10`. Keys must be present in the dataset columns; PushT
+# and TwoRoom both expose `proprio`.
+wm:
+  history_size: 3
+  num_preds: 1
+  encoding:
+    action: 10
+    # proprio: 10                   # uncomment / override to enable with-prop
+
+predictor:
+  size: small
+  depth: 6
+  heads: 16
+  mlp_dim: 2048
+  dim_head: 64
+  dropout: 0.1
+  emb_dropout: 0.0
+
+# --- Optimizer ---
+optimizer:
+  type: AdamW
+  lr: 5.0e-4
+  weight_decay: 0.0
+
+# --- Trainer ---
+trainer:
+  max_epochs: 10
+  strategy: ddp
+  devices: auto
+  accelerator: gpu
+  precision: bf16
+  gradient_clip_val: 1.0
+
+# --- Input-side noise (mirrors lewm.yaml / pldm.yaml) ---
+# Override at CLI, e.g.:
+#   python train_prejepa.py exp_name=... image_noise.std_max=0.006
+image_noise:
+  type: gaussian_noise
+  std_min: 0.0
+  std_max: 0.0
+  noise_prob: 1.0
+  apply_to_val: False
+
+# --- Logger (LeWM convention) ---
+logger_backend: swanlab             # swanlab (default) or wandb
+swanlab:
+  enabled: True
+  config:
+    project: worldmodels
+    workspace: qunteam
+    experiment_name: ${exp_name}
+    logdir: logs/swanlab
+
+wandb:
+  enabled: False
+  config:
+    entity: qun-team
+    project: worldmodels
+    name: ${exp_name}
+    id: ${subdir}
+    resume: allow
+    log_model: False

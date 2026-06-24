@@ -1,0 +1,19 @@
+# PushT data config for external baseline training (PLDM, PreJEPA-noprop).
+# Matches the LeWM data config (config/train/data/pusht.yaml) but uses a
+# simpler num_steps expression that doesn't depend on LeWM-only fields like
+# loss.rollout.steps. Also keeps the same keys_to_load so the data pipeline
+# is bit-identical from a sampling standpoint.
+
+dataset:
+  num_steps: ${eval:'${wm.num_preds} + ${wm.history_size}'}
+  frameskip: 5
+  name: pusht_expert_train
+  keys_to_load:
+    - pixels
+    - action
+    - proprio   # loaded but unused by PLDM.encode(); kept for compatibility
+    - state
+  keys_to_cache:
+    - action
+    - proprio
+    - state

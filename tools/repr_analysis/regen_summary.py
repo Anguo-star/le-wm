@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from tools.repr_analysis.run_full_diagnostics import _summarize_noise_to_predictor_to_resolution
 from tools.repr_analysis.latent_noise_sensitivity import summarize_latent_noise_geometry
 from tools.repr_analysis.analyze_repr import to_serializable
+from tools.paper1_paths import task_dir
 
 
 def _csv_to_rows(path: Path) -> list[dict]:
@@ -96,5 +97,4 @@ def regen(task_dir: Path, out_path: Path | None = None):
 
 if __name__ == "__main__":
     for task in ["lewm-tworooms", "lewm-pusht"]:
-        task_dir = Path(f"/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/{task}")
-        regen(task_dir)
+        regen(task_dir(task))

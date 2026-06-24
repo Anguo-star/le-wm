@@ -1,0 +1,130 @@
+defaults:
+  - _self_
+  - data: tworoom
+
+output_model_name: swm
+exp_name: ${output_model_name}
+subdir: ${exp_name}
+
+num_workers: 6
+train_split: 0.9
+seed: 3072
+img_size: 224
+patch_size: 14
+encoder_scale: tiny
+dump_object: True
+
+image_noise:
+  type: gaussian_noise
+  std_min: 0.0 # per-frame std lower bound; 0 disables when std_max==0
+  std_max: 0.0 # per-frame std upper bound
+  noise_prob: 1.0 # per-frame Bernoulli prob of applying noise; <1 leaves some frames unperturbed
+  apply_to_val: False
+
+encoder:
+  projection_head:
+    type: linear # linear or mlp
+    norm_fn: batchnorm1d # none, layernorm, or batchnorm1d
+    hidden_dim: 2048 # only used when type=mlp
+
+trainer:
+  max_epochs: 10
+  devices: auto
+  accelerator: gpu
+  precision: bf16
+  gradient_clip_val: 1.0
+
+loader:
+  batch_size: 128
+  num_workers: ${num_workers}
+  persistent_workers: True
+  prefetch_factor: 3
+  pin_memory: True
+
+optimizer:
+  type: AdamW
+  lr: 5e-5
+  weight_decay: 1e-3
+
+logger_backend: swanlab  # swanlab (default) or wandb
+
+swanlab:
+  enabled: True
+  config:
+    project: worldmodels
+    workspace: qunteam
+    experiment_name: ${exp_name}
+    logdir: logs/swanlab
+
+wandb:
+  enabled: True
+  config:
+    entity: qun-team
+    project: worldmodels
+    name: ${exp_name}
+    id: ${subdir}
+    resume: allow
+    log_model: False
+
+wm:
+  type: swm
+  history_size: 3
+  num_preds: 1
+  embed_dim: 64 # sphere is compact; start smaller than LeWM's 192
+  inference:
+    rollout_state_space: normalized # normalized or raw
+    cost_space: normalized # normalized or raw
+    cost_type: cosine # cosine or mse
+
+predictor:
+  depth: 6
+  heads: 16
+  mlp_dim: 2048
+  dim_head: 64
+  dropout: 0.1
+  emb_dropout: 0.0
+
+loss:
+  pred:
+    type: cosine # cosine or mse
+    space: normalized # normalized or raw
+    context_space: ${loss.pred.space} # predictor context space during training
+  rollout:
+    weight: 0.0 # set >0 to add short-horizon autoregressive rollout loss
+    steps: 1 # total autoregressive rollout steps after the history window
+    type: ${loss.pred.type} # cosine or mse
+    space: ${loss.pred.space} # normalized or raw target space
+    context_space: ${loss.pred.context_space} # rollout context space during training
+  regularizer:
+    type: uniformity # spread, uniformity, or infonce
+    space: normalized # normalized or raw
+    scope: full # full or pred_window
+    weight: 0.1 # λ balancing pred_loss vs anti-collapse regularization
+  temporal_hinge:
+    weight: 0.0 # disabled by default
+    margin: 0.1
+    squared: True
+    dynamic:
+      enabled: False # learn transition-wise margins with a linear head
+      base_margin: 0.5 # mean margin after score normalization
+      min_margin: 0.05 # numeric safety bound for cosine distance
+      max_margin: 1.0
+  inverse_dynamics:
+    weight: 0.0 # predict action from consecutive latents
+    hidden_dim: ${wm.embed_dim}
+    space: normalized # normalized or raw
+    detach_input: False
+  transition_distance:
+    weight: 0.0 # diagnostic auxiliary; default does not shape latents
+    hidden_dim: ${wm.embed_dim}
+    space: normalized # normalized or raw
+    metric: cosine # cosine for normalized, l2 for raw
+    detach_input: True
+  spread:
+    margin: 0.0 # m in max(0, mu_i^T mu_j - m)^2
+  uniformity:
+    t: 2.0 # Wang & Isola temperature in log E[exp(-t ||mu_i - mu_j||^2)]
+    mode: all_pairs # all_pairs, cross_window, or temporal_masked
+    temporal_exclusion: 0 # only used by temporal_masked; exclude same-window pairs with |Δt| <= k
+  infonce:
+    temperature: 0.1 # symmetric InfoNCE at each time step; positives are aligned pred/target pairs, negatives include cross-view batch items and same-view non-self items

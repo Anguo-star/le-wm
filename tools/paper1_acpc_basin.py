@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
 from tools import paper1_phase0_acpc as phase0
+from tools.paper1_paths import default_model_roots
 
 
 TASK_CKPT_ROOTS = {
@@ -36,8 +37,6 @@ TASK_CKPT_ROOTS = {
     "Reacher": "lewm-reacher",
     "Cube": "lewm-cube",
 }
-
-DEFAULT_MODEL_ROOT = os.environ.get("PAPER1_DATA_ROOT") or os.environ.get("STABLEWM_HOME")
 
 DEFAULT_CORRUPTIONS = (
     "gaussian_noise:0.01",
@@ -117,6 +116,8 @@ def _candidate_dirs(
     if run_path:
         p = Path(run_path).expanduser()
         dirs.append(p)
+        if not p.is_absolute():
+            dirs.extend(root / p for root in model_roots)
     for root in model_roots:
         dirs.extend(
             [
@@ -456,7 +457,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--model-root",
         action="append",
-        default=[DEFAULT_MODEL_ROOT] if DEFAULT_MODEL_ROOT else [],
+        default=[str(path) for path in default_model_roots()],
         help="Root containing lewm-{task}/ckpt/<subdir> checkpoint directories. Defaults to PAPER1_DATA_ROOT or STABLEWM_HOME when set.",
     )
     p.add_argument("--out", default="assets/paper1_data/acpc_basin_diagnostics.json")

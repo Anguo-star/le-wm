@@ -1,0 +1,56 @@
+defaults:
+  - _self_
+  - data: pusht
+
+checkpoint: ???
+cache_dir: null
+img_size: 224
+batch_size: 128
+num_workers: 4
+device: cuda
+seed: 3072
+
+analysis:
+  frame_index: -1
+  max_samples: 5000
+  target_keys:
+    - proprio
+  tsne:
+    enabled: true
+    perplexity: 30.0
+    n_components: 2
+    init: pca
+    learning_rate: auto
+    color_by: null
+  umap:
+    enabled: true
+    n_components: 2
+    n_neighbors: 15
+    min_dist: 0.1
+    metric: euclidean
+    color_by: null
+  spherical_tsne:
+    enabled: true
+    perplexity: 30.0
+    init: pca
+    learning_rate: auto
+    color_by: null
+  linear_probe:
+    enabled: true
+    target_keys: ${analysis.target_keys}
+    test_size: 0.2
+    ridge_alpha: 1.0
+    max_iter: 1000
+    classification_max_classes: 32
+  mlp_probe:
+    enabled: false
+    target_keys: ${analysis.target_keys}
+    test_size: 0.2
+    hidden_layers: [256, 128]
+    learning_rate_init: 0.001
+    max_iter: 1000
+    classification_max_classes: 32
+
+output:
+  dir: ${hydra:runtime.output_dir}
+  save_intermediate: false

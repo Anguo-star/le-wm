@@ -19,6 +19,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence, TYPE_CHECKING
 
+from tools.paper1_paths import default_model_roots
+
 if TYPE_CHECKING:
     import torch
 
@@ -174,6 +176,8 @@ def _candidate_model_files(directory: Path) -> list[Path]:
 def _alternate_dirs(run_path: Path, subdir: str, model_roots: Sequence[Path]) -> list[Path]:
     dirs = [run_path]
     for root in model_roots:
+        if not run_path.is_absolute():
+            dirs.append(root / run_path)
         dirs.extend([root / subdir, root / "ckpt" / subdir, root / "checkpoints" / subdir])
     # Canonical eval paths point at <task-root>/ckpt/<subdir>. Some PLDM
     # training runs keep weights under the sibling <task-root>/checkpoints/.
@@ -650,7 +654,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--std-keys", nargs="+", default=list(STD_KEYS))
     p.add_argument("--evals-lewm", default=METHOD_EVALS["LeWM"])
     p.add_argument("--evals-pldm", default=METHOD_EVALS["PLDM"])
-    p.add_argument("--model-root", action="append", default=[], help="Additional root to search for model files.")
+    p.add_argument(
+        "--model-root",
+        action="append",
+        default=[str(path) for path in default_model_roots()],
+        help="Root containing lewm-{task}/ckpt/<subdir> checkpoint directories. Defaults to PAPER1_DATA_ROOT or STABLEWM_HOME when set.",
+    )
     p.add_argument("--out", default="assets/paper1_data/acpc_phase0_diagnostics.json")
     p.add_argument("--dry-run", action="store_true", help="Resolve manifests and model files without loading models.")
     p.add_argument("--limit", type=int, default=None, help="Maximum number of manifest rows to process.")

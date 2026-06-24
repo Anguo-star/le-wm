@@ -1,5 +1,5 @@
 dataset:
-  num_steps: ${eval:'${wm.num_preds} + ${wm.history_size}'}
+  num_steps: ${eval:'max(${wm.num_preds}, ${oc.select:loss.rollout.steps,0}) + ${wm.history_size}'}
   frameskip: 5
   name: reacher
   keys_to_load:

@@ -9,9 +9,11 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
+from tools.paper1_paths import repo_root, task_dir
+
 TASKS = {
     "tworoom": {
-        "stablewm_home": "/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/lewm-tworooms",
+        "stablewm_home": str(task_dir("lewm-tworooms")),
         "config_name": "tworoom",
         "models": [
             ("LeWM-perframe-p05", "ckpt/tworoom_lewm_noise_0to005_p05/tworoom_lewm_noise_0to005_p05_epoch_9", 94.0),
@@ -21,7 +23,7 @@ TASKS = {
         ],
     },
     "pusht": {
-        "stablewm_home": "/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/lewm-pusht",
+        "stablewm_home": str(task_dir("lewm-pusht")),
         "config_name": "pusht",
         "models": [
             ("LeWM-perframe-0to001-p1", "ckpt/pusht_lewm_noise_0to001_p1/pusht_lewm_noise_0to001_p1_epoch_9", 87.3),
@@ -79,7 +81,7 @@ def run_single_eval(task_name, label, policy_path, expected,
                 stdout=logf,
                 stderr=subprocess.STDOUT,
                 timeout=EVAL_TIMEOUT,
-                cwd="/opt/huawei/explorer-env/dataset/ag_data/code/wm_exp",
+                cwd=repo_root(),
             )
     except subprocess.TimeoutExpired:
         elapsed = time.time() - start
@@ -158,7 +160,7 @@ def main():
                 if logf:
                     print(f"  log: {logf}")
 
-    out_path = Path("/opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll/missing_eval_results_v2.json")
+    out_path = repo_root() / "assets" / "paper1_data" / "missing_eval_results_v2.json"
     out_path.write_text(json.dumps(results, indent=2))
     print(f"\nSaved to {out_path}")
 

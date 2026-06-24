@@ -22,7 +22,7 @@ for downstream uniformity.
 Run::
 
     python -m tools.build_canonical_diagnostics_pldm \\
-        --root /home/ag/dataset/ag_data/data/world_model/quentinll \\
+        --root "$PAPER1_DATA_ROOT" \\
         --out  assets/paper1_data/canonical_diagnostics_pldm_<DATE>.json
 """
 from __future__ import annotations
@@ -31,6 +31,8 @@ import argparse
 import json
 import re
 from pathlib import Path
+
+from tools.paper1_paths import paper1_data_root
 
 
 TASKS = ("TwoRoom", "PushT", "Reacher", "Cube")
@@ -126,7 +128,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--root",
-        default="/home/ag/dataset/ag_data/data/world_model/quentinll",
+        default=str(paper1_data_root()),
     )
     ap.add_argument(
         "--out",

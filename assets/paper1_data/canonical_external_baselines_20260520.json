@@ -5,7 +5,7 @@
     "protocol": "3 evaluation seeds (42/43/44) x 100 trajectories per seed; success rates are percentage points.",
     "std_convention": "population standard deviation across the three evaluation seeds (ddof=0)",
     "scope": "PushT clean-trained PLDM baseline only; not a cross-architecture noise-training sweep.",
-    "source_root": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_baseline"
+    "source_root": "lewm-pusht/ckpt/pusht_pldm_baseline"
   },
   "baselines": {
     "PushT": {
@@ -23,31 +23,51 @@
         "evaluation": {
           "clean": {
             "n": 3,
-            "values": [75.0, 71.0, 80.0],
+            "values": [
+              75.0,
+              71.0,
+              80.0
+            ],
             "mean": 75.33333333333333,
             "std": 3.6817870057290873
           },
           "pixels_goal_std0.05": {
             "n": 3,
-            "values": [42.0, 39.0, 50.0],
+            "values": [
+              42.0,
+              39.0,
+              50.0
+            ],
             "mean": 43.666666666666664,
             "std": 4.642796092394706
           },
           "pixels_goal_std0.08": {
             "n": 3,
-            "values": [8.0, 9.0, 13.0],
+            "values": [
+              8.0,
+              9.0,
+              13.0
+            ],
             "mean": 10.0,
             "std": 2.160246899469287
           },
           "pixels_std0.08": {
             "n": 3,
-            "values": [21.0, 16.0, 18.0],
+            "values": [
+              21.0,
+              16.0,
+              18.0
+            ],
             "mean": 18.333333333333332,
             "std": 2.0548046676563256
           },
           "goal_std0.08": {
             "n": 3,
-            "values": [35.0, 26.0, 43.0],
+            "values": [
+              35.0,
+              26.0,
+              43.0
+            ],
             "mean": 34.666666666666664,
             "std": 6.944222218666553
           }
@@ -61,7 +81,7 @@
           "transition_resolution_ratio_cos": 0.2196366885360957,
           "id_probe_r2": 0.757016658782959,
           "predictor_rollout_T8_l2": 20.248950958251953,
-          "predictor_target_to_nn_cos_ratio_at_max_std": 0.000001943207808586258,
+          "predictor_target_to_nn_cos_ratio_at_max_std": 1.943207808586258e-06,
           "latent_cost_surface_slope_z": 770.30262,
           "action_mean_pred_shift_norm": 0.1842239499092102
         }

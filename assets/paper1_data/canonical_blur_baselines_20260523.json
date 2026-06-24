@@ -135,7 +135,7 @@
           ]
         },
         "clean_to_worst_pixels_goal_blur_drop": 12.666666666666671,
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_20260430",
+        "path": "lewm-cube/ckpt/cube_lewm_20260430",
         "subdir": "cube_lewm_20260430",
         "worst_pixels_goal_blur": {
           "condition": "pixels_goal_blur_ks15",
@@ -286,7 +286,7 @@
           ]
         },
         "clean_to_worst_pixels_goal_blur_drop": 27.666666666666664,
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_20260430",
+        "path": "lewm-pusht/ckpt/pusht_lewm_20260430",
         "subdir": "pusht_lewm_20260430",
         "worst_pixels_goal_blur": {
           "condition": "pixels_goal_blur_ks15",
@@ -437,7 +437,7 @@
           ]
         },
         "clean_to_worst_pixels_goal_blur_drop": 38.33333333333333,
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_20260430",
+        "path": "lewm-reacher/ckpt/reacher_lewm_20260430",
         "subdir": "reacher_lewm_20260430",
         "worst_pixels_goal_blur": {
           "condition": "pixels_goal_blur_ks15",
@@ -588,7 +588,7 @@
           ]
         },
         "clean_to_worst_pixels_goal_blur_drop": 63.66666666666667,
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_20260430",
+        "path": "lewm-tworooms/ckpt/tworoom_lewm_20260430",
         "subdir": "tworoom_lewm_20260430",
         "worst_pixels_goal_blur": {
           "condition": "pixels_goal_blur_ks11",
@@ -741,7 +741,7 @@
           ]
         },
         "clean_to_worst_pixels_goal_blur_drop": 2.0,
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_baseline",
+        "path": "lewm-cube/ckpt/cube_pldm_baseline",
         "subdir": "cube_pldm_baseline",
         "worst_pixels_goal_blur": {
           "condition": "pixels_goal_blur_ks11",
@@ -892,7 +892,7 @@
           ]
         },
         "clean_to_worst_pixels_goal_blur_drop": 12.999999999999993,
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_baseline",
+        "path": "lewm-pusht/ckpt/pusht_pldm_baseline",
         "subdir": "pusht_pldm_baseline",
         "worst_pixels_goal_blur": {
           "condition": "pixels_goal_blur_ks15",
@@ -1043,7 +1043,7 @@
           ]
         },
         "clean_to_worst_pixels_goal_blur_drop": 14.666666666666671,
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_baseline",
+        "path": "lewm-reacher/ckpt/reacher_pldm_baseline",
         "subdir": "reacher_pldm_baseline",
         "worst_pixels_goal_blur": {
           "condition": "pixels_goal_blur_ks15",
@@ -1194,7 +1194,7 @@
           ]
         },
         "clean_to_worst_pixels_goal_blur_drop": 68.33333333333334,
-        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_baseline",
+        "path": "lewm-tworooms/ckpt/tworoom_pldm_baseline",
         "subdir": "tworoom_pldm_baseline",
         "worst_pixels_goal_blur": {
           "condition": "pixels_goal_blur_ks11",

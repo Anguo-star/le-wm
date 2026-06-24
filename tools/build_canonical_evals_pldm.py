@@ -18,7 +18,7 @@ Conditions covered: clean, goal/pixels/pixels_goal at std ∈ {0.03, 0.05, 0.08}
 Run::
 
     python -m tools.build_canonical_evals_pldm \\
-        --root /home/ag/dataset/ag_data/data/world_model/quentinll \\
+        --root "$PAPER1_DATA_ROOT" \\
         --out  assets/paper1_data/canonical_evals_pldm_<DATE>.json
 """
 from __future__ import annotations
@@ -29,6 +29,8 @@ import json
 import re
 import statistics
 from pathlib import Path
+
+from tools.paper1_paths import paper1_data_root, portable_path
 
 
 # task → env-dir-name × std_key parser
@@ -191,7 +193,7 @@ def build(root: Path, out_path: Path) -> dict:
             if previous is not None and ckpt_dir.name <= previous["subdir"]:
                 continue
             canonical[task][std_key] = {
-                "path": str(ckpt_dir.resolve()),
+                "path": portable_path(ckpt_dir, root),
                 "subdir": ckpt_dir.name,
                 "metrics": metrics,
             }
@@ -204,7 +206,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--root",
-        default="/home/ag/dataset/ag_data/data/world_model/quentinll",
+        default=str(paper1_data_root()),
         help="dataset root that contains lewm-{cube,pusht,reacher,tworooms}/",
     )
     ap.add_argument(

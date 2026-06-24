@@ -3,7 +3,8 @@ defaults:
   - data: pusht
 
 output_model_name: lewm
-subdir: ${hydra:job.id}
+exp_name: ${output_model_name}
+subdir: ${exp_name}
 
 num_workers: 6
 train_split: 0.9
@@ -13,8 +14,20 @@ patch_size: 14
 encoder_scale: tiny
 dump_object: True
 
+image_noise:
+  type: gaussian_noise
+  std_min: 0.0 # per-frame std lower bound; 0 disables when std_max==0
+  std_max: 0.0 # per-frame std upper bound
+  noise_prob: 1.0 # per-frame Bernoulli prob of applying noise; <1 leaves some frames unperturbed
+  apply_to_val: False
+
+encoder:
+  projection_head:
+    norm_fn: batchnorm1d # none, layernorm, or batchnorm1d (lewm head is always MLP)
+    hidden_dim: 2048
+
 trainer:
-  max_epochs: 100
+  max_epochs: 10
   devices: auto
   accelerator: gpu
   precision: bf16
@@ -32,12 +45,22 @@ optimizer:
   lr: 5e-5
   weight_decay: 1e-3
 
+logger_backend: swanlab  # swanlab (default) or wandb
+
+swanlab:
+  enabled: True
+  config:
+    project: worldmodels
+    workspace: qunteam
+    experiment_name: ${exp_name}
+    logdir: logs/swanlab
+
 wandb:
   enabled: True
   config:
-    entity: lewm
-    project: lewm
-    name: ${output_model_name}
+    entity: qun-team
+    project: worldmodels
+    name: ${exp_name}
     id: ${subdir}
     resume: allow
     log_model: False
@@ -57,8 +80,142 @@ predictor:
   emb_dropout: 0.0
 
 loss:
+  pred:
+    space: raw # raw or l2_norm/normalized; only changes pred_loss MSE inputs
+    # Prediction target view:
+    #   perturbed = full-stream augmentation behavior; configured image perturbation
+    #               is applied to the whole pixels sequence, so context and future
+    #               target are both encoded from the perturbed view.
+    #   origin = keep pred_loss targets on the original future latents while
+    #            predictor history/context comes from the perturbed input view.
+    #            SIGReg also uses that perturbed input view so anti-collapse
+    #            regularizes the representation actually consumed by predictor.
+    target_view: perturbed
+  generic_latent_consistency:
+    enabled: false
+  snap_acpc:
+    enabled: false
+  paired_view_control:
+    enabled: false
+  in_forward_noise_control:
+    enabled: false
+  # SimSiam-style stop-grad on the target branch (Chen & He, CVPR 2021).
+  # Default false preserves classic LeWM behavior. Setting true is the
+  # recommended companion when removing BN from the projection head — the
+  # asymmetric architecture (predictor on online side + stop-grad on target)
+  # is what prevents trivial directional collapse without batch-coupling.
+  target_stop_grad: false
   sigreg:
     weight: 0.09
     kwargs:
       knots: 17
       num_proj: 1024
+    # Optional scale-aware Wasserstein companion. Use when removing BN
+    # (encoder.projection_head.norm_fn=none) leaves SIGReg stuck at a high
+    # constant — see notes_lewm_bn_removal.md §3.1/§5. Two schedule modes:
+    #   replace   (legacy) — during warmup: Wass only; after: SIGReg only.
+    #                        Has a phase switch that perturbs pred_loss.
+    #   add_decay (smooth) — SIGReg always on; Wass at full weight for
+    #                        `epochs` epochs, then linear decay over
+    #                        `decay_epochs` to 0. No phase switch.
+    # Logging keys (regardless of mode):
+    #   sigreg_loss  — Epps-Pulley value (always logged)
+    #   wass_loss    — Wasserstein value (logged when the module is built)
+    #   sigreg_scale / wass_scale — schedule scales on the loss contribution
+    #   sigreg_warmup_active — 1 inside the warmup window, 0 after
+    # Defaults below keep the classic LeWM behavior (no Wasserstein).
+    warmup:
+      type: none         # none or wasserstein
+      mode: replace      # replace or add_decay
+      epochs: 0          # full-weight Wass epochs
+      decay_epochs: 0    # linear-decay epochs (add_decay only)
+      num_proj: 1024     # random projections for the Wasserstein term
+      weight: null       # Wass term weight; null reuses loss.sigreg.weight
+  temporal_hinge:
+    weight: 0.0 # disabled by default
+    margin: 0.1
+    squared: True
+    dynamic:
+      enabled: False # learn transition-wise margins with a linear head
+      base_margin: 0.5 # mean margin after score normalization
+      min_margin: 0.05 # numeric safety bound for L2 distance
+      max_margin: 1.0
+  inverse_dynamics:
+    weight: 0.0 # predict action from consecutive latents
+    hidden_dim: ${wm.embed_dim}
+    detach_input: False
+  transition_distance:
+    weight: 0.0 # diagnostic auxiliary; default does not shape latents
+    hidden_dim: ${wm.embed_dim}
+    metric: l2
+    detach_input: True
+  # Sigma-conditioned prediction. Set mode=loss to replace MSE pred_loss with
+  # a scale-preserving hetero NLL:
+  #   err_t = mean((mu_hat - mu_target)^2, dim=-1)
+  #   s     = clamp(logvar_hat, s_min, s_max)
+  #   tau   = stop_grad(mean(err_t))
+  #   loss  = mean(exp(-s) * err_t + tau * s)   # equals MSE at s=0
+  # SIGReg(mu) is unchanged. LeWM is the strict baseline (s ≡ 0).
+  # Set mode=probe for the current preferred path: keep the mu path as exact
+  # LeWM MSE + SIGReg and train only the scalar sigma head against detached
+  # log prediction error.
+  hetero:
+    enabled: false
+    mode: loss # loss or probe
+    logvar_hidden_dim: 256
+    probe_weight: 1.0
+    s_min: -4.0
+    s_max: 4.0
+    tau_floor: 1.0e-6
+  # Action-aware adaptive resolution gate (logging-only). Computes the
+  # per-token action sensitivity A_t = || f(z, a+δ) - f(z, a) || / ||δ||,
+  # combines with σ_t from the hetero probe head, and emits diagnostic
+  # statistics. Does NOT modify the training loss in this stage. Designed
+  # to ride on top of `loss.hetero.mode=probe` so σ_t is meaningful; if
+  # hetero is off, gS_t falls back to 0.5 (sigma adds no enhancement) and
+  # only A_t-based metrics are informative. See plan_adaptive_resolution.md
+  # §8.3.2 for the full rationale and judgement criteria.
+  action_gate:
+    enabled: false
+    mode: full                # full = gA + gS (default); sigma_only = σ-only ablation
+                              # (skip K perturb forwards, critical = gS * 0.5, requires
+                              # loss.hetero.enabled=true with mode=probe). A_t-only is
+                              # achieved implicitly by mode=full + loss.hetero.enabled=false.
+                              # dgc = Diagnostic-Gated Consistency: replaces K-perturb
+                              # action sensitivity with single-shot fragility =
+                              # ||predict(noisy_z, a) - predict(origin_z, a)|| / nn_dist.
+                              # Drops K, delta_scale, chaos discount, warmup; reuses
+                              # noisy encoder forward with adaptive_consistency. See
+                              # plan_adaptive_resolution.md §3.8.2.
+    dgc_noise_std_max: null   # noise std for the DGC fragility probe; defaults to
+                              # adaptive_consistency.noise_std_max when null. Set
+                              # equal to it to enable noisy_emb cache reuse.
+    dgc_knn_k: 5              # k for batch-local NN distance normalization (DGC only)
+    intervention: none        # Causal-necessity controls for paper §6 P0-2. One of:
+                              #   none           — real σ+A_t (default).
+                              #   shuffle_sigma  — permute s_t over (B,T) before z-score.
+                              #   shuffle_action — permute log_A over (B,T) before z-score.
+                              #   random_gate    — critical ~ U(0,1) (replaces σ/A entirely).
+                              #   constant_w     — scalar batch-mean w_t (kills per-token spread).
+    delta_scale: 0.25         # δ ~ N(0, (delta_scale * action_std)^2 I); action_std is per-batch
+    num_delta_samples: 4      # K independent δ draws per token for CV estimation
+    warmup_epochs: 3          # collect-but-don't-aggregate gate during warmup (see §8.3.2.1)
+    ema_momentum: 0.99        # EMA smoothing for zscore statistics
+    delta_norm_floor: 1.0e-6
+    log_a_floor: 1.0e-8
+    w_min: 0.2
+    w_max: 1.0
+  # Stage C: action-aware adaptive encoder consistency. This keeps the main
+  # LeWM MSE + SIGReg objective unchanged and adds a small original/noisy
+  # encoder consistency term weighted by the detached action-gate weights. Requires
+  # loss.action_gate.enabled=true for non-uniform weights.
+  adaptive_consistency:
+    enabled: false
+    weight: 0.0
+    noise_std_min: 0.0
+    noise_std_max: 0.04
+    noise_prob: 1.0
+    distance: l2              # l2 or cosine
+    detach_origin: true
+    detach_clean: null        # deprecated alias; kept for old overrides only
+    require_action_gate: true

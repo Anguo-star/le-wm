@@ -1,0 +1,11 @@
+dataset:
+  num_steps: 1
+  frameskip: 5
+  name: pusht_expert_train
+  keys_to_load:
+    - pixels
+    - proprio
+    - state
+  keys_to_cache:
+    - proprio
+    - state

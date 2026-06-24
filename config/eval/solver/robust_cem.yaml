@@ -1,0 +1,27 @@
+_target_: robust_cem.RiskAwareCEMSolver
+model: ???
+batch_size: 1
+num_samples: 300
+var_scale: 1.0
+n_steps: 30
+topk: 30
+device: "cuda"
+seed: ${seed}
+robust:
+  enabled: false
+  mode: rerank_topk
+  topk: 30
+  robust_current: true
+  robust_goal: true
+  belief_mode: input_tta_empirical
+  tta_num: 8
+  tta_noise_std: 0.005
+  tta_include_identity: true
+  latent_samples: 8
+  risk: cvar
+  cvar_q: 0.8
+  quantile_q: 0.8
+  lambda_std: 1.0
+  log_debug: true
+  robust_history_limit: 256
+  tta_clamp: true

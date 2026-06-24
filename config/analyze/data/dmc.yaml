@@ -1,0 +1,9 @@
+dataset:
+  num_steps: 1
+  frameskip: 5
+  name: reacher
+  keys_to_load:
+    - pixels
+    - observation
+  keys_to_cache:
+    - observation
