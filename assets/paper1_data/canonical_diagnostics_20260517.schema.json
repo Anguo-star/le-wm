@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/qun-team/wm_exp/blob/main/canonical_diagnostics_20260517.schema.json",
+  "title": "canonical_diagnostics_20260517",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "metadata",
+    "predictor_metrics_by_task",
+    "published_correlations",
+    "table3_representative_diagnostics"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "description",
+        "diagnostic_max_std_selection",
+        "history_noise_only",
+        "related_eval_source",
+        "scope"
+      ],
+      "additionalProperties": true
+    },
+    "predictor_metrics_by_task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["TwoRoom", "PushT", "Reacher", "Cube"],
+      "properties": {
+        "TwoRoom": { "$ref": "#/$defs/taskSweep" },
+        "PushT": { "$ref": "#/$defs/taskSweep" },
+        "Reacher": { "$ref": "#/$defs/taskSweep" },
+        "Cube": { "$ref": "#/$defs/taskSweep" }
+      }
+    },
+    "published_correlations": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "table3_representative_diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metric_order", "representative_std_by_task", "values"],
+      "properties": {
+        "metric_order": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "representative_std_by_task": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["TwoRoom", "PushT", "Reacher", "Cube"],
+          "properties": {
+            "TwoRoom": { "type": "number" },
+            "PushT": { "type": "number" },
+            "Reacher": { "type": "number" },
+            "Cube": { "type": "number" }
+          }
+        },
+        "values": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["TwoRoom", "PushT", "Reacher", "Cube"],
+          "properties": {
+            "TwoRoom": { "$ref": "#/$defs/table3TaskValues" },
+            "PushT": { "$ref": "#/$defs/table3TaskValues" },
+            "Reacher": { "$ref": "#/$defs/table3TaskValues" },
+            "Cube": { "$ref": "#/$defs/table3TaskValues" }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "predictorEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subdir",
+        "diagnostic_max_std",
+        "predictor_target_to_nn_cos_ratio_at_max_std",
+        "predictor_rollout_T8_l2_at_max_std"
+      ],
+      "properties": {
+        "subdir": { "type": "string", "minLength": 1 },
+        "diagnostic_max_std": { "type": "number" },
+        "predictor_target_to_nn_cos_ratio_at_max_std": { "type": "number" },
+        "predictor_rollout_T8_l2_at_max_std": { "type": "number" }
+      }
+    },
+    "taskSweep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["0.0", "0.01", "0.02", "0.03", "0.04", "0.05", "0.06", "0.07", "0.08"],
+      "properties": {
+        "0.0": { "$ref": "#/$defs/predictorEntry" },
+        "0.01": { "$ref": "#/$defs/predictorEntry" },
+        "0.02": { "$ref": "#/$defs/predictorEntry" },
+        "0.03": { "$ref": "#/$defs/predictorEntry" },
+        "0.04": { "$ref": "#/$defs/predictorEntry" },
+        "0.05": { "$ref": "#/$defs/predictorEntry" },
+        "0.06": { "$ref": "#/$defs/predictorEntry" },
+        "0.07": { "$ref": "#/$defs/predictorEntry" },
+        "0.08": { "$ref": "#/$defs/predictorEntry" }
+      }
+    },
+    "metricBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clean_effective_rank",
+        "clean_nn_cos_dist_median",
+        "transition_resolution_ratio_l2",
+        "transition_resolution_ratio_cos",
+        "id_probe_r2",
+        "action_mean_pred_shift_norm"
+      ],
+      "properties": {
+        "clean_effective_rank": { "type": "number" },
+        "clean_nn_cos_dist_median": { "type": "number" },
+        "transition_resolution_ratio_l2": { "type": "number" },
+        "transition_resolution_ratio_cos": { "type": "number" },
+        "id_probe_r2": { "type": "number" },
+        "action_mean_pred_shift_norm": { "type": "number" }
+      }
+    },
+    "table3TaskValues": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["base", "representative"],
+      "properties": {
+        "base": { "$ref": "#/$defs/metricBlock" },
+        "representative": { "$ref": "#/$defs/metricBlock" }
+      }
+    }
+  }
+}

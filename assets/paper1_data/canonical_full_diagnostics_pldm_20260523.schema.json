@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "diagnostics_by_task": {
+      "type": "object"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "representative_diagnostics": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "metadata",
+    "diagnostics_by_task",
+    "representative_diagnostics"
+  ],
+  "title": "Paper 1 canonical PLDM full diagnostics",
+  "type": "object"
+}

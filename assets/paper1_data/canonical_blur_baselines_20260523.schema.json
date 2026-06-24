@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "baselines": {
+      "type": "object"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "metadata",
+    "baselines"
+  ],
+  "title": "Paper 1 canonical clean-baseline blur evals",
+  "type": "object"
+}

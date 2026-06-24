@@ -1,0 +1,1250 @@
+{
+  "baselines": {
+    "LeWM": {
+      "Cube": {
+        "blur": {
+          "goal_blur_ks11": {
+            "mean": 59.666666666666664,
+            "n": 3,
+            "std": 0.4714045207910317,
+            "values": [
+              60.0,
+              59.0,
+              60.0
+            ]
+          },
+          "goal_blur_ks15": {
+            "mean": 56.666666666666664,
+            "n": 3,
+            "std": 2.6246692913372693,
+            "values": [
+              59.0,
+              53.0,
+              58.0
+            ]
+          },
+          "goal_blur_ks3": {
+            "mean": 63.333333333333336,
+            "n": 3,
+            "std": 0.9428090415820634,
+            "values": [
+              62.0,
+              64.0,
+              64.0
+            ]
+          },
+          "goal_blur_ks7": {
+            "mean": 62.333333333333336,
+            "n": 3,
+            "std": 1.8856180831641267,
+            "values": [
+              65.0,
+              61.0,
+              61.0
+            ]
+          },
+          "pixels_blur_ks11": {
+            "mean": 56.666666666666664,
+            "n": 3,
+            "std": 2.6246692913372693,
+            "values": [
+              53.0,
+              58.0,
+              59.0
+            ]
+          },
+          "pixels_blur_ks15": {
+            "mean": 53.666666666666664,
+            "n": 3,
+            "std": 1.699673171197598,
+            "values": [
+              53.0,
+              52.0,
+              56.0
+            ]
+          },
+          "pixels_blur_ks3": {
+            "mean": 62.666666666666664,
+            "n": 3,
+            "std": 1.247219128924647,
+            "values": [
+              61.0,
+              64.0,
+              63.0
+            ]
+          },
+          "pixels_blur_ks7": {
+            "mean": 60.666666666666664,
+            "n": 3,
+            "std": 1.699673171197595,
+            "values": [
+              60.0,
+              63.0,
+              59.0
+            ]
+          },
+          "pixels_goal_blur_ks11": {
+            "mean": 57.333333333333336,
+            "n": 3,
+            "std": 2.867441755680876,
+            "values": [
+              57.0,
+              54.0,
+              61.0
+            ]
+          },
+          "pixels_goal_blur_ks15": {
+            "mean": 54.0,
+            "n": 3,
+            "std": 2.1602468994692834,
+            "values": [
+              53.0,
+              52.0,
+              57.0
+            ]
+          },
+          "pixels_goal_blur_ks3": {
+            "mean": 65.0,
+            "n": 3,
+            "std": 1.632993161855452,
+            "values": [
+              65.0,
+              67.0,
+              63.0
+            ]
+          },
+          "pixels_goal_blur_ks7": {
+            "mean": 62.333333333333336,
+            "n": 3,
+            "std": 2.6246692913372702,
+            "values": [
+              66.0,
+              61.0,
+              60.0
+            ]
+          }
+        },
+        "clean": {
+          "mean": 66.66666666666667,
+          "n": 3,
+          "std": 2.6246692913372702,
+          "values": [
+            63.0,
+            69.0,
+            68.0
+          ]
+        },
+        "clean_to_worst_pixels_goal_blur_drop": 12.666666666666671,
+        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_20260430",
+        "subdir": "cube_lewm_20260430",
+        "worst_pixels_goal_blur": {
+          "condition": "pixels_goal_blur_ks15",
+          "kernel_size": 15,
+          "summary": {
+            "mean": 54.0,
+            "n": 3,
+            "std": 2.1602468994692834,
+            "values": [
+              53.0,
+              52.0,
+              57.0
+            ]
+          }
+        }
+      },
+      "PushT": {
+        "blur": {
+          "goal_blur_ks11": {
+            "mean": 68.0,
+            "n": 3,
+            "std": 2.943920288775949,
+            "values": [
+              72.0,
+              65.0,
+              67.0
+            ]
+          },
+          "goal_blur_ks15": {
+            "mean": 61.333333333333336,
+            "n": 3,
+            "std": 4.988876515698586,
+            "values": [
+              68.0,
+              56.0,
+              60.0
+            ]
+          },
+          "goal_blur_ks3": {
+            "mean": 80.33333333333333,
+            "n": 3,
+            "std": 4.4969125210773475,
+            "values": [
+              84.0,
+              74.0,
+              83.0
+            ]
+          },
+          "goal_blur_ks7": {
+            "mean": 75.66666666666667,
+            "n": 3,
+            "std": 6.342099196813483,
+            "values": [
+              82.0,
+              67.0,
+              78.0
+            ]
+          },
+          "pixels_blur_ks11": {
+            "mean": 65.0,
+            "n": 3,
+            "std": 2.943920288775949,
+            "values": [
+              68.0,
+              61.0,
+              66.0
+            ]
+          },
+          "pixels_blur_ks15": {
+            "mean": 60.666666666666664,
+            "n": 3,
+            "std": 4.988876515698588,
+            "values": [
+              62.0,
+              54.0,
+              66.0
+            ]
+          },
+          "pixels_blur_ks3": {
+            "mean": 83.0,
+            "n": 3,
+            "std": 3.559026084010437,
+            "values": [
+              81.0,
+              80.0,
+              88.0
+            ]
+          },
+          "pixels_blur_ks7": {
+            "mean": 77.0,
+            "n": 3,
+            "std": 1.4142135623730951,
+            "values": [
+              78.0,
+              75.0,
+              78.0
+            ]
+          },
+          "pixels_goal_blur_ks11": {
+            "mean": 65.33333333333333,
+            "n": 3,
+            "std": 2.494438257849294,
+            "values": [
+              66.0,
+              62.0,
+              68.0
+            ]
+          },
+          "pixels_goal_blur_ks15": {
+            "mean": 58.666666666666664,
+            "n": 3,
+            "std": 6.64997911442,
+            "values": [
+              55.0,
+              53.0,
+              68.0
+            ]
+          },
+          "pixels_goal_blur_ks3": {
+            "mean": 81.66666666666667,
+            "n": 3,
+            "std": 4.4969125210773475,
+            "values": [
+              76.0,
+              82.0,
+              87.0
+            ]
+          },
+          "pixels_goal_blur_ks7": {
+            "mean": 74.0,
+            "n": 3,
+            "std": 1.4142135623730951,
+            "values": [
+              72.0,
+              75.0,
+              75.0
+            ]
+          }
+        },
+        "clean": {
+          "mean": 86.33333333333333,
+          "n": 3,
+          "std": 2.3570226039551585,
+          "values": [
+            88.0,
+            83.0,
+            88.0
+          ]
+        },
+        "clean_to_worst_pixels_goal_blur_drop": 27.666666666666664,
+        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_20260430",
+        "subdir": "pusht_lewm_20260430",
+        "worst_pixels_goal_blur": {
+          "condition": "pixels_goal_blur_ks15",
+          "kernel_size": 15,
+          "summary": {
+            "mean": 58.666666666666664,
+            "n": 3,
+            "std": 6.64997911442,
+            "values": [
+              55.0,
+              53.0,
+              68.0
+            ]
+          }
+        }
+      },
+      "Reacher": {
+        "blur": {
+          "goal_blur_ks11": {
+            "mean": 33.333333333333336,
+            "n": 3,
+            "std": 6.128258770283412,
+            "values": [
+              41.0,
+              26.0,
+              33.0
+            ]
+          },
+          "goal_blur_ks15": {
+            "mean": 24.666666666666668,
+            "n": 3,
+            "std": 4.4969125210773475,
+            "values": [
+              21.0,
+              31.0,
+              22.0
+            ]
+          },
+          "goal_blur_ks3": {
+            "mean": 58.333333333333336,
+            "n": 3,
+            "std": 2.867441755680873,
+            "values": [
+              62.0,
+              58.0,
+              55.0
+            ]
+          },
+          "goal_blur_ks7": {
+            "mean": 49.0,
+            "n": 3,
+            "std": 4.08248290463863,
+            "values": [
+              44.0,
+              49.0,
+              54.0
+            ]
+          },
+          "pixels_blur_ks11": {
+            "mean": 32.0,
+            "n": 3,
+            "std": 5.354126134736337,
+            "values": [
+              39.0,
+              31.0,
+              26.0
+            ]
+          },
+          "pixels_blur_ks15": {
+            "mean": 19.0,
+            "n": 3,
+            "std": 2.449489742783178,
+            "values": [
+              22.0,
+              19.0,
+              16.0
+            ]
+          },
+          "pixels_blur_ks3": {
+            "mean": 53.333333333333336,
+            "n": 3,
+            "std": 0.4714045207910317,
+            "values": [
+              53.0,
+              53.0,
+              54.0
+            ]
+          },
+          "pixels_blur_ks7": {
+            "mean": 41.0,
+            "n": 3,
+            "std": 1.632993161855452,
+            "values": [
+              39.0,
+              43.0,
+              41.0
+            ]
+          },
+          "pixels_goal_blur_ks11": {
+            "mean": 36.0,
+            "n": 3,
+            "std": 4.898979485566356,
+            "values": [
+              36.0,
+              42.0,
+              30.0
+            ]
+          },
+          "pixels_goal_blur_ks15": {
+            "mean": 20.333333333333332,
+            "n": 3,
+            "std": 2.494438257849294,
+            "values": [
+              17.0,
+              21.0,
+              23.0
+            ]
+          },
+          "pixels_goal_blur_ks3": {
+            "mean": 57.0,
+            "n": 3,
+            "std": 6.377042156569663,
+            "values": [
+              52.0,
+              66.0,
+              53.0
+            ]
+          },
+          "pixels_goal_blur_ks7": {
+            "mean": 45.666666666666664,
+            "n": 3,
+            "std": 2.0548046676563256,
+            "values": [
+              46.0,
+              48.0,
+              43.0
+            ]
+          }
+        },
+        "clean": {
+          "mean": 58.666666666666664,
+          "n": 3,
+          "std": 1.2472191289246504,
+          "values": [
+            59.0,
+            57.0,
+            60.0
+          ]
+        },
+        "clean_to_worst_pixels_goal_blur_drop": 38.33333333333333,
+        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_20260430",
+        "subdir": "reacher_lewm_20260430",
+        "worst_pixels_goal_blur": {
+          "condition": "pixels_goal_blur_ks15",
+          "kernel_size": 15,
+          "summary": {
+            "mean": 20.333333333333332,
+            "n": 3,
+            "std": 2.494438257849294,
+            "values": [
+              17.0,
+              21.0,
+              23.0
+            ]
+          }
+        }
+      },
+      "TwoRoom": {
+        "blur": {
+          "goal_blur_ks11": {
+            "mean": 46.333333333333336,
+            "n": 3,
+            "std": 4.0276819911981905,
+            "values": [
+              43.0,
+              52.0,
+              44.0
+            ]
+          },
+          "goal_blur_ks15": {
+            "mean": 45.666666666666664,
+            "n": 3,
+            "std": 4.4969125210773475,
+            "values": [
+              43.0,
+              52.0,
+              42.0
+            ]
+          },
+          "goal_blur_ks3": {
+            "mean": 54.0,
+            "n": 3,
+            "std": 4.320493798938572,
+            "values": [
+              48.0,
+              56.0,
+              58.0
+            ]
+          },
+          "goal_blur_ks7": {
+            "mean": 48.0,
+            "n": 3,
+            "std": 6.531972647421811,
+            "values": [
+              40.0,
+              56.0,
+              48.0
+            ]
+          },
+          "pixels_blur_ks11": {
+            "mean": 45.0,
+            "n": 3,
+            "std": 4.546060565661952,
+            "values": [
+              39.0,
+              46.0,
+              50.0
+            ]
+          },
+          "pixels_blur_ks15": {
+            "mean": 41.0,
+            "n": 3,
+            "std": 4.320493798938574,
+            "values": [
+              35.0,
+              43.0,
+              45.0
+            ]
+          },
+          "pixels_blur_ks3": {
+            "mean": 59.666666666666664,
+            "n": 3,
+            "std": 7.039570693980959,
+            "values": [
+              58.0,
+              52.0,
+              69.0
+            ]
+          },
+          "pixels_blur_ks7": {
+            "mean": 50.333333333333336,
+            "n": 3,
+            "std": 3.68178700572909,
+            "values": [
+              46.0,
+              50.0,
+              55.0
+            ]
+          },
+          "pixels_goal_blur_ks11": {
+            "mean": 30.333333333333332,
+            "n": 3,
+            "std": 2.8674417556808756,
+            "values": [
+              30.0,
+              34.0,
+              27.0
+            ]
+          },
+          "pixels_goal_blur_ks15": {
+            "mean": 30.666666666666668,
+            "n": 3,
+            "std": 0.4714045207910317,
+            "values": [
+              31.0,
+              30.0,
+              31.0
+            ]
+          },
+          "pixels_goal_blur_ks3": {
+            "mean": 39.333333333333336,
+            "n": 3,
+            "std": 2.0548046676563256,
+            "values": [
+              39.0,
+              42.0,
+              37.0
+            ]
+          },
+          "pixels_goal_blur_ks7": {
+            "mean": 32.666666666666664,
+            "n": 3,
+            "std": 3.0912061651652345,
+            "values": [
+              31.0,
+              37.0,
+              30.0
+            ]
+          }
+        },
+        "clean": {
+          "mean": 94.0,
+          "n": 3,
+          "std": 3.559026084010437,
+          "values": [
+            91.0,
+            92.0,
+            99.0
+          ]
+        },
+        "clean_to_worst_pixels_goal_blur_drop": 63.66666666666667,
+        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_20260430",
+        "subdir": "tworoom_lewm_20260430",
+        "worst_pixels_goal_blur": {
+          "condition": "pixels_goal_blur_ks11",
+          "kernel_size": 11,
+          "summary": {
+            "mean": 30.333333333333332,
+            "n": 3,
+            "std": 2.8674417556808756,
+            "values": [
+              30.0,
+              34.0,
+              27.0
+            ]
+          }
+        }
+      }
+    },
+    "PLDM": {
+      "Cube": {
+        "blur": {
+          "goal_blur_ks11": {
+            "mean": 51.666666666666664,
+            "n": 3,
+            "std": 4.027681991198192,
+            "values": [
+              54.0,
+              46.0,
+              55.0
+            ]
+          },
+          "goal_blur_ks15": {
+            "mean": 50.0,
+            "n": 3,
+            "std": 3.559026084010437,
+            "values": [
+              52.0,
+              45.0,
+              53.0
+            ]
+          },
+          "goal_blur_ks3": {
+            "mean": 54.0,
+            "n": 3,
+            "std": 3.265986323710901,
+            "values": [
+              54.0,
+              50.0,
+              58.0
+            ]
+          },
+          "goal_blur_ks7": {
+            "mean": 52.333333333333336,
+            "n": 3,
+            "std": 4.109609335312649,
+            "values": [
+              53.0,
+              47.0,
+              57.0
+            ]
+          },
+          "pixels_blur_ks11": {
+            "mean": 51.0,
+            "n": 3,
+            "std": 2.8284271247461934,
+            "values": [
+              55.0,
+              49.0,
+              49.0
+            ]
+          },
+          "pixels_blur_ks15": {
+            "mean": 50.666666666666664,
+            "n": 3,
+            "std": 5.557777333511025,
+            "values": [
+              53.0,
+              43.0,
+              56.0
+            ]
+          },
+          "pixels_blur_ks3": {
+            "mean": 53.0,
+            "n": 3,
+            "std": 3.741657386773938,
+            "values": [
+              52.0,
+              49.0,
+              58.0
+            ]
+          },
+          "pixels_blur_ks7": {
+            "mean": 52.333333333333336,
+            "n": 3,
+            "std": 3.2998316455372243,
+            "values": [
+              56.0,
+              48.0,
+              53.0
+            ]
+          },
+          "pixels_goal_blur_ks11": {
+            "mean": 50.666666666666664,
+            "n": 3,
+            "std": 3.6817870057290896,
+            "values": [
+              55.0,
+              46.0,
+              51.0
+            ]
+          },
+          "pixels_goal_blur_ks15": {
+            "mean": 52.333333333333336,
+            "n": 3,
+            "std": 5.436502143433361,
+            "values": [
+              54.0,
+              45.0,
+              58.0
+            ]
+          },
+          "pixels_goal_blur_ks3": {
+            "mean": 53.0,
+            "n": 3,
+            "std": 5.354126134736337,
+            "values": [
+              54.0,
+              46.0,
+              59.0
+            ]
+          },
+          "pixels_goal_blur_ks7": {
+            "mean": 53.0,
+            "n": 3,
+            "std": 2.8284271247461934,
+            "values": [
+              55.0,
+              49.0,
+              55.0
+            ]
+          }
+        },
+        "clean": {
+          "mean": 52.666666666666664,
+          "n": 3,
+          "std": 3.299831645537225,
+          "values": [
+            55.0,
+            48.0,
+            55.0
+          ]
+        },
+        "clean_to_worst_pixels_goal_blur_drop": 2.0,
+        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_baseline",
+        "subdir": "cube_pldm_baseline",
+        "worst_pixels_goal_blur": {
+          "condition": "pixels_goal_blur_ks11",
+          "kernel_size": 11,
+          "summary": {
+            "mean": 50.666666666666664,
+            "n": 3,
+            "std": 3.6817870057290896,
+            "values": [
+              55.0,
+              46.0,
+              51.0
+            ]
+          }
+        }
+      },
+      "PushT": {
+        "blur": {
+          "goal_blur_ks11": {
+            "mean": 72.0,
+            "n": 3,
+            "std": 0.0,
+            "values": [
+              72.0,
+              72.0,
+              72.0
+            ]
+          },
+          "goal_blur_ks15": {
+            "mean": 68.0,
+            "n": 3,
+            "std": 3.265986323710904,
+            "values": [
+              68.0,
+              64.0,
+              72.0
+            ]
+          },
+          "goal_blur_ks3": {
+            "mean": 74.66666666666667,
+            "n": 3,
+            "std": 1.8856180831641267,
+            "values": [
+              76.0,
+              72.0,
+              76.0
+            ]
+          },
+          "goal_blur_ks7": {
+            "mean": 74.0,
+            "n": 3,
+            "std": 1.4142135623730951,
+            "values": [
+              76.0,
+              73.0,
+              73.0
+            ]
+          },
+          "pixels_blur_ks11": {
+            "mean": 70.33333333333333,
+            "n": 3,
+            "std": 3.858612300930075,
+            "values": [
+              72.0,
+              65.0,
+              74.0
+            ]
+          },
+          "pixels_blur_ks15": {
+            "mean": 68.0,
+            "n": 3,
+            "std": 1.4142135623730951,
+            "values": [
+              67.0,
+              67.0,
+              70.0
+            ]
+          },
+          "pixels_blur_ks3": {
+            "mean": 76.0,
+            "n": 3,
+            "std": 3.7416573867739413,
+            "values": [
+              77.0,
+              71.0,
+              80.0
+            ]
+          },
+          "pixels_blur_ks7": {
+            "mean": 72.66666666666667,
+            "n": 3,
+            "std": 2.8674417556808756,
+            "values": [
+              73.0,
+              69.0,
+              76.0
+            ]
+          },
+          "pixels_goal_blur_ks11": {
+            "mean": 67.66666666666667,
+            "n": 3,
+            "std": 4.0276819911981905,
+            "values": [
+              71.0,
+              62.0,
+              70.0
+            ]
+          },
+          "pixels_goal_blur_ks15": {
+            "mean": 62.333333333333336,
+            "n": 3,
+            "std": 2.0548046676563256,
+            "values": [
+              62.0,
+              60.0,
+              65.0
+            ]
+          },
+          "pixels_goal_blur_ks3": {
+            "mean": 74.0,
+            "n": 3,
+            "std": 2.943920288775949,
+            "values": [
+              77.0,
+              70.0,
+              75.0
+            ]
+          },
+          "pixels_goal_blur_ks7": {
+            "mean": 72.0,
+            "n": 3,
+            "std": 3.559026084010437,
+            "values": [
+              75.0,
+              67.0,
+              74.0
+            ]
+          }
+        },
+        "clean": {
+          "mean": 75.33333333333333,
+          "n": 3,
+          "std": 3.681787005729087,
+          "values": [
+            75.0,
+            71.0,
+            80.0
+          ]
+        },
+        "clean_to_worst_pixels_goal_blur_drop": 12.999999999999993,
+        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_baseline",
+        "subdir": "pusht_pldm_baseline",
+        "worst_pixels_goal_blur": {
+          "condition": "pixels_goal_blur_ks15",
+          "kernel_size": 15,
+          "summary": {
+            "mean": 62.333333333333336,
+            "n": 3,
+            "std": 2.0548046676563256,
+            "values": [
+              62.0,
+              60.0,
+              65.0
+            ]
+          }
+        }
+      },
+      "Reacher": {
+        "blur": {
+          "goal_blur_ks11": {
+            "mean": 77.66666666666667,
+            "n": 3,
+            "std": 2.494438257849294,
+            "values": [
+              75.0,
+              81.0,
+              77.0
+            ]
+          },
+          "goal_blur_ks15": {
+            "mean": 65.33333333333333,
+            "n": 3,
+            "std": 4.714045207910317,
+            "values": [
+              62.0,
+              62.0,
+              72.0
+            ]
+          },
+          "goal_blur_ks3": {
+            "mean": 81.66666666666667,
+            "n": 3,
+            "std": 5.436502143433364,
+            "values": [
+              86.0,
+              85.0,
+              74.0
+            ]
+          },
+          "goal_blur_ks7": {
+            "mean": 77.33333333333333,
+            "n": 3,
+            "std": 5.557777333511022,
+            "values": [
+              85.0,
+              72.0,
+              75.0
+            ]
+          },
+          "pixels_blur_ks11": {
+            "mean": 75.66666666666667,
+            "n": 3,
+            "std": 0.9428090415820634,
+            "values": [
+              77.0,
+              75.0,
+              75.0
+            ]
+          },
+          "pixels_blur_ks15": {
+            "mean": 70.0,
+            "n": 3,
+            "std": 4.96655480858378,
+            "values": [
+              67.0,
+              66.0,
+              77.0
+            ]
+          },
+          "pixels_blur_ks3": {
+            "mean": 82.0,
+            "n": 3,
+            "std": 2.943920288775949,
+            "values": [
+              81.0,
+              86.0,
+              79.0
+            ]
+          },
+          "pixels_blur_ks7": {
+            "mean": 82.33333333333333,
+            "n": 3,
+            "std": 2.3570226039551585,
+            "values": [
+              84.0,
+              79.0,
+              84.0
+            ]
+          },
+          "pixels_goal_blur_ks11": {
+            "mean": 72.0,
+            "n": 3,
+            "std": 2.160246899469287,
+            "values": [
+              70.0,
+              71.0,
+              75.0
+            ]
+          },
+          "pixels_goal_blur_ks15": {
+            "mean": 68.0,
+            "n": 3,
+            "std": 4.08248290463863,
+            "values": [
+              73.0,
+              68.0,
+              63.0
+            ]
+          },
+          "pixels_goal_blur_ks3": {
+            "mean": 86.0,
+            "n": 3,
+            "std": 2.160246899469287,
+            "values": [
+              83.0,
+              88.0,
+              87.0
+            ]
+          },
+          "pixels_goal_blur_ks7": {
+            "mean": 80.0,
+            "n": 3,
+            "std": 3.559026084010437,
+            "values": [
+              82.0,
+              83.0,
+              75.0
+            ]
+          }
+        },
+        "clean": {
+          "mean": 82.66666666666667,
+          "n": 3,
+          "std": 1.699673171197595,
+          "values": [
+            85.0,
+            81.0,
+            82.0
+          ]
+        },
+        "clean_to_worst_pixels_goal_blur_drop": 14.666666666666671,
+        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_baseline",
+        "subdir": "reacher_pldm_baseline",
+        "worst_pixels_goal_blur": {
+          "condition": "pixels_goal_blur_ks15",
+          "kernel_size": 15,
+          "summary": {
+            "mean": 68.0,
+            "n": 3,
+            "std": 4.08248290463863,
+            "values": [
+              73.0,
+              68.0,
+              63.0
+            ]
+          }
+        }
+      },
+      "TwoRoom": {
+        "blur": {
+          "goal_blur_ks11": {
+            "mean": 50.0,
+            "n": 3,
+            "std": 2.943920288775949,
+            "values": [
+              51.0,
+              53.0,
+              46.0
+            ]
+          },
+          "goal_blur_ks15": {
+            "mean": 41.666666666666664,
+            "n": 3,
+            "std": 4.4969125210773475,
+            "values": [
+              42.0,
+              47.0,
+              36.0
+            ]
+          },
+          "goal_blur_ks3": {
+            "mean": 59.666666666666664,
+            "n": 3,
+            "std": 3.299831645537219,
+            "values": [
+              56.0,
+              64.0,
+              59.0
+            ]
+          },
+          "goal_blur_ks7": {
+            "mean": 52.333333333333336,
+            "n": 3,
+            "std": 4.189935029992175,
+            "values": [
+              48.0,
+              58.0,
+              51.0
+            ]
+          },
+          "pixels_blur_ks11": {
+            "mean": 57.0,
+            "n": 3,
+            "std": 3.741657386773941,
+            "values": [
+              56.0,
+              62.0,
+              53.0
+            ]
+          },
+          "pixels_blur_ks15": {
+            "mean": 51.0,
+            "n": 3,
+            "std": 4.320493798938576,
+            "values": [
+              45.0,
+              55.0,
+              53.0
+            ]
+          },
+          "pixels_blur_ks3": {
+            "mean": 78.0,
+            "n": 3,
+            "std": 2.160246899469287,
+            "values": [
+              75.0,
+              79.0,
+              80.0
+            ]
+          },
+          "pixels_blur_ks7": {
+            "mean": 55.33333333333334,
+            "n": 3,
+            "std": 0.4714045207910317,
+            "values": [
+              55.0,
+              56.0,
+              55.0
+            ]
+          },
+          "pixels_goal_blur_ks11": {
+            "mean": 28.333333333333332,
+            "n": 3,
+            "std": 1.2472191289246468,
+            "values": [
+              30.0,
+              27.0,
+              28.0
+            ]
+          },
+          "pixels_goal_blur_ks15": {
+            "mean": 28.333333333333332,
+            "n": 3,
+            "std": 1.6996731711975945,
+            "values": [
+              26.0,
+              30.0,
+              29.0
+            ]
+          },
+          "pixels_goal_blur_ks3": {
+            "mean": 38.333333333333336,
+            "n": 3,
+            "std": 0.4714045207910317,
+            "values": [
+              38.0,
+              39.0,
+              38.0
+            ]
+          },
+          "pixels_goal_blur_ks7": {
+            "mean": 30.333333333333332,
+            "n": 3,
+            "std": 2.8674417556808756,
+            "values": [
+              27.0,
+              34.0,
+              30.0
+            ]
+          }
+        },
+        "clean": {
+          "mean": 96.66666666666667,
+          "n": 3,
+          "std": 1.699673171197595,
+          "values": [
+            95.0,
+            96.0,
+            99.0
+          ]
+        },
+        "clean_to_worst_pixels_goal_blur_drop": 68.33333333333334,
+        "path": "/home/ag/dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_baseline",
+        "subdir": "tworoom_pldm_baseline",
+        "worst_pixels_goal_blur": {
+          "condition": "pixels_goal_blur_ks11",
+          "kernel_size": 11,
+          "summary": {
+            "mean": 28.333333333333332,
+            "n": 3,
+            "std": 1.2472191289246468,
+            "values": [
+              30.0,
+              27.0,
+              28.0
+            ]
+          }
+        }
+      }
+    }
+  },
+  "metadata": {
+    "blur_kernel_sizes": [
+      3,
+      7,
+      11,
+      15
+    ],
+    "blur_scopes": [
+      "pixels",
+      "goal",
+      "pixels_goal"
+    ],
+    "evaluation_seeds": [
+      42,
+      43,
+      44
+    ],
+    "methods": [
+      "LeWM",
+      "PLDM"
+    ],
+    "schema_version": "blur-baselines-1.0",
+    "scope": "Clean-trained LeWM and PLDM baseline evals under Gaussian blur.",
+    "status": "eval-only cross-corruption sanity check; not a blur-training sweep",
+    "std_convention": "population standard deviation across evaluation seeds (ddof=0)",
+    "success_rate_unit": "percent",
+    "tasks": [
+      "TwoRoom",
+      "PushT",
+      "Reacher",
+      "Cube"
+    ],
+    "trajectories_per_seed": 100
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "description": "LeWM target-view ablation summary for paper1 Appendix I. Canonical values use seeds 42/43/44 with 100 trajectories per seed, aggregated first within each checkpoint and then across the eight training-noise checkpoints 0to001..0to008. Both target-view branches were rerun after checkpoint/config-derived eval history-size inference was fixed.",
+  "families": {
+    "full_sequence_perturbed_target": "default full-sequence input-side Gaussian noise training; context and future target latents are encoded from perturbed frames",
+    "perturbed_history_to_original_future": "loss.pred.target_view=origin; prediction context is encoded from perturbed history, while the future target latent is encoded from the original frame"
+  },
+  "closed_loop_pixels_std0.08_across_eight_checkpoints": {
+    "tworoom": {
+      "full_sequence_mean": 94.708333125,
+      "full_sequence_population_std": 1.8961767353824408,
+      "origin_target_mean": 61.75,
+      "origin_target_population_std": 7.6498910231889425,
+      "full_sequence_advantage": 32.958333125
+    },
+    "pusht": {
+      "full_sequence_mean": 72.833333125,
+      "full_sequence_population_std": 12.838743404567804,
+      "origin_target_mean": 6.749999875,
+      "origin_target_population_std": 4.999305573304943,
+      "full_sequence_advantage": 66.08333325
+    },
+    "reacher": {
+      "full_sequence_mean": 76.166666625,
+      "full_sequence_population_std": 10.889597652882623,
+      "origin_target_mean": 19.624999875,
+      "origin_target_population_std": 3.9701578950723873,
+      "full_sequence_advantage": 56.54166675
+    },
+    "cube": {
+      "full_sequence_mean": 59.83333325,
+      "full_sequence_population_std": 5.547772290648647,
+      "origin_target_mean": 39.625,
+      "origin_target_population_std": 1.218349258901876,
+      "full_sequence_advantage": 20.20833325
+    }
+  },
+  "full_sequence_rerun_check_pixels_std0.08_vs_archive": {
+    "tworoom": {
+      "archive_mean": 96.0,
+      "rerun_mean": 94.708333125,
+      "delta": -1.291666875
+    },
+    "pusht": {
+      "archive_mean": 74.75,
+      "rerun_mean": 72.833333125,
+      "delta": -1.916666875
+    },
+    "reacher": {
+      "archive_mean": 76.0,
+      "rerun_mean": 76.166666625,
+      "delta": 0.166666625
+    },
+    "cube": {
+      "archive_mean": 62.125,
+      "rerun_mean": 59.83333325,
+      "delta": -2.29166675
+    },
+    "note": "Archive means were recomputed from canonical seeds 42/43/44 in eval_results_old_code_history1_bug_20260607. The rerun preserves the full-sequence advantage and supports treating previous differences as normal eval variance rather than a code-driven effect."
+  },
+  "origin_target_all_eval_modes_across_eight_checkpoints": {
+    "tworoom": {
+      "origin_mean": 93.33333333333333,
+      "origin_population_std": 1.7240134054647642,
+      "pixels_std0.03_mean": 88.66666649999999,
+      "pixels_std0.03_population_std": 6.036923448431515,
+      "pixels_std0.05_mean": 77.70833325,
+      "pixels_std0.05_population_std": 9.121765038829448,
+      "pixels_std0.08_mean": 61.75,
+      "pixels_std0.08_population_std": 7.6498910231889425
+    },
+    "pusht": {
+      "origin_mean": 82.916666625,
+      "origin_population_std": 3.9991318597846317,
+      "pixels_std0.03_mean": 57.70833325,
+      "pixels_std0.03_population_std": 8.963564466850727,
+      "pixels_std0.05_mean": 20.20833325,
+      "pixels_std0.05_population_std": 11.683247094605644,
+      "pixels_std0.08_mean": 6.749999875,
+      "pixels_std0.08_population_std": 4.999305573304943
+    },
+    "reacher": {
+      "origin_mean": 59.916666666666664,
+      "origin_population_std": 1.800848565414525,
+      "pixels_std0.03_mean": 40.375,
+      "pixels_std0.03_population_std": 2.781074552518638,
+      "pixels_std0.05_mean": 32.000000125,
+      "pixels_std0.05_population_std": 4.56739658400227,
+      "pixels_std0.08_mean": 19.624999875,
+      "pixels_std0.08_population_std": 3.9701578950723873
+    },
+    "cube": {
+      "origin_mean": 65.0,
+      "origin_population_std": 2.013840995599095,
+      "pixels_std0.03_mean": 61.41666675,
+      "pixels_std0.03_population_std": 2.0598680142453754,
+      "pixels_std0.05_mean": 44.291666625,
+      "pixels_std0.05_population_std": 1.316956865435133,
+      "pixels_std0.08_mean": 39.625,
+      "pixels_std0.08_population_std": 1.218349258901876
+    }
+  },
+  "representative_pusht_0to008": {
+    "canonical_seeds_42_43_44": {
+      "full_sequence_pixels_std0.08_raw": [88.0, 82.0, 89.0],
+      "full_sequence_pixels_std0.08_mean": 86.33333333333333,
+      "origin_target_origin_raw": [83.0, 77.0, 92.0],
+      "origin_target_origin_mean": 84.0,
+      "origin_target_pixels_std0.08_raw": [12.0, 4.0, 10.0],
+      "origin_target_pixels_std0.08_mean": 8.666667
+    }
+  },
+  "swanlab_training_log_check": {
+    "matched_runs": {
+      "target_origin": 32,
+      "full_sequence": 32
+    },
+    "target_origin_validation_pred_loss_last_mean": 0.01497,
+    "full_sequence_validation_pred_loss_last_mean": 0.01534,
+    "note": "The target-origin SwanLab runs log validation metrics only; validation has no image_noise.apply_to_val, so clean validation convergence does not imply noisy closed-loop rollout robustness."
+  }
+}

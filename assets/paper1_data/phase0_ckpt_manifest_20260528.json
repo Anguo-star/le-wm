@@ -1,0 +1,593 @@
+{
+  "ckpt_filename": "epoch_10.ckpt",
+  "root": "dataset/ag_data/data/world_model/quentinll",
+  "entries": [
+    {
+      "idx": 1,
+      "task": "Cube",
+      "std_max": "0.0",
+      "method": "LeWM",
+      "subdir": "cube_lewm_20260430",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_20260430/epoch_10.ckpt"
+    },
+    {
+      "idx": 2,
+      "task": "Cube",
+      "std_max": "0.0",
+      "method": "PLDM",
+      "subdir": "cube_pldm_baseline",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_baseline/epoch_10.ckpt"
+    },
+    {
+      "idx": 3,
+      "task": "Cube",
+      "std_max": "0.01",
+      "method": "LeWM",
+      "subdir": "cube_lewm_noise_0to001_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_noise_0to001_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 4,
+      "task": "Cube",
+      "std_max": "0.01",
+      "method": "PLDM",
+      "subdir": "cube_pldm_noise_0to001_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to001_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 5,
+      "task": "Cube",
+      "std_max": "0.02",
+      "method": "LeWM",
+      "subdir": "cube_lewm_noise_0to002_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_noise_0to002_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 6,
+      "task": "Cube",
+      "std_max": "0.02",
+      "method": "PLDM",
+      "subdir": "cube_pldm_noise_0to002_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to002_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 7,
+      "task": "Cube",
+      "std_max": "0.03",
+      "method": "LeWM",
+      "subdir": "cube_lewm_noise_0to003_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_noise_0to003_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 8,
+      "task": "Cube",
+      "std_max": "0.03",
+      "method": "PLDM",
+      "subdir": "cube_pldm_noise_0to003_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to003_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 9,
+      "task": "Cube",
+      "std_max": "0.04",
+      "method": "LeWM",
+      "subdir": "cube_lewm_noise_0to004_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_noise_0to004_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 10,
+      "task": "Cube",
+      "std_max": "0.04",
+      "method": "PLDM",
+      "subdir": "cube_pldm_noise_0to004_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to004_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 11,
+      "task": "Cube",
+      "std_max": "0.05",
+      "method": "LeWM",
+      "subdir": "cube_lewm_noise_0to005_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_noise_0to005_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 12,
+      "task": "Cube",
+      "std_max": "0.05",
+      "method": "PLDM",
+      "subdir": "cube_pldm_noise_0to005_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to005_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 13,
+      "task": "Cube",
+      "std_max": "0.06",
+      "method": "LeWM",
+      "subdir": "cube_lewm_noise_0to006_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_noise_0to006_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 14,
+      "task": "Cube",
+      "std_max": "0.06",
+      "method": "PLDM",
+      "subdir": "cube_pldm_noise_0to006_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to006_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 15,
+      "task": "Cube",
+      "std_max": "0.07",
+      "method": "LeWM",
+      "subdir": "cube_lewm_noise_0to007_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_noise_0to007_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 16,
+      "task": "Cube",
+      "std_max": "0.07",
+      "method": "PLDM",
+      "subdir": "cube_pldm_noise_0to007_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to007_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 17,
+      "task": "Cube",
+      "std_max": "0.08",
+      "method": "LeWM",
+      "subdir": "cube_lewm_noise_0to008_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_lewm_noise_0to008_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 18,
+      "task": "Cube",
+      "std_max": "0.08",
+      "method": "PLDM",
+      "subdir": "cube_pldm_noise_0to008_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-cube/ckpt/cube_pldm_noise_0to008_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 19,
+      "task": "PushT",
+      "std_max": "0.0",
+      "method": "LeWM",
+      "subdir": "pusht_lewm_20260430",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_20260430/epoch_10.ckpt"
+    },
+    {
+      "idx": 20,
+      "task": "PushT",
+      "std_max": "0.0",
+      "method": "PLDM",
+      "subdir": "pusht_pldm_baseline",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_baseline/epoch_10.ckpt"
+    },
+    {
+      "idx": 21,
+      "task": "PushT",
+      "std_max": "0.01",
+      "method": "LeWM",
+      "subdir": "pusht_lewm_noise_0to001_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_noise_0to001_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 22,
+      "task": "PushT",
+      "std_max": "0.01",
+      "method": "PLDM",
+      "subdir": "pusht_pldm_noise_0to001_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to001_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 23,
+      "task": "PushT",
+      "std_max": "0.02",
+      "method": "LeWM",
+      "subdir": "pusht_lewm_noise_0to002_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_noise_0to002_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 24,
+      "task": "PushT",
+      "std_max": "0.02",
+      "method": "PLDM",
+      "subdir": "pusht_pldm_noise_0to002_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to002_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 25,
+      "task": "PushT",
+      "std_max": "0.03",
+      "method": "LeWM",
+      "subdir": "pusht_lewm_noise_0to003_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_noise_0to003_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 26,
+      "task": "PushT",
+      "std_max": "0.03",
+      "method": "PLDM",
+      "subdir": "pusht_pldm_noise_0to003_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to003_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 27,
+      "task": "PushT",
+      "std_max": "0.04",
+      "method": "LeWM",
+      "subdir": "pusht_lewm_noise_0to004_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_noise_0to004_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 28,
+      "task": "PushT",
+      "std_max": "0.04",
+      "method": "PLDM",
+      "subdir": "pusht_pldm_noise_0to004_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to004_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 29,
+      "task": "PushT",
+      "std_max": "0.05",
+      "method": "LeWM",
+      "subdir": "pusht_lewm_noise_0to005_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_noise_0to005_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 30,
+      "task": "PushT",
+      "std_max": "0.05",
+      "method": "PLDM",
+      "subdir": "pusht_pldm_noise_0to005_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to005_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 31,
+      "task": "PushT",
+      "std_max": "0.06",
+      "method": "LeWM",
+      "subdir": "pusht_lewm_noise_0to006_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_noise_0to006_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 32,
+      "task": "PushT",
+      "std_max": "0.06",
+      "method": "PLDM",
+      "subdir": "pusht_pldm_noise_0to006_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to006_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 33,
+      "task": "PushT",
+      "std_max": "0.07",
+      "method": "LeWM",
+      "subdir": "pusht_lewm_noise_0to007_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_noise_0to007_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 34,
+      "task": "PushT",
+      "std_max": "0.07",
+      "method": "PLDM",
+      "subdir": "pusht_pldm_noise_0to007_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to007_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 35,
+      "task": "PushT",
+      "std_max": "0.08",
+      "method": "LeWM",
+      "subdir": "pusht_lewm_noise_0to008_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_lewm_noise_0to008_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 36,
+      "task": "PushT",
+      "std_max": "0.08",
+      "method": "PLDM",
+      "subdir": "pusht_pldm_noise_0to008_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-pusht/ckpt/pusht_pldm_noise_0to008_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 37,
+      "task": "Reacher",
+      "std_max": "0.0",
+      "method": "LeWM",
+      "subdir": "reacher_lewm_20260430",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_20260430/epoch_10.ckpt"
+    },
+    {
+      "idx": 38,
+      "task": "Reacher",
+      "std_max": "0.0",
+      "method": "PLDM",
+      "subdir": "reacher_pldm_baseline",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_baseline/epoch_10.ckpt"
+    },
+    {
+      "idx": 39,
+      "task": "Reacher",
+      "std_max": "0.01",
+      "method": "LeWM",
+      "subdir": "reacher_lewm_noise_0to001_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_noise_0to001_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 40,
+      "task": "Reacher",
+      "std_max": "0.01",
+      "method": "PLDM",
+      "subdir": "reacher_pldm_noise_0to001_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to001_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 41,
+      "task": "Reacher",
+      "std_max": "0.02",
+      "method": "LeWM",
+      "subdir": "reacher_lewm_noise_0to002_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_noise_0to002_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 42,
+      "task": "Reacher",
+      "std_max": "0.02",
+      "method": "PLDM",
+      "subdir": "reacher_pldm_noise_0to002_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to002_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 43,
+      "task": "Reacher",
+      "std_max": "0.03",
+      "method": "LeWM",
+      "subdir": "reacher_lewm_noise_0to003_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_noise_0to003_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 44,
+      "task": "Reacher",
+      "std_max": "0.03",
+      "method": "PLDM",
+      "subdir": "reacher_pldm_noise_0to003_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to003_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 45,
+      "task": "Reacher",
+      "std_max": "0.04",
+      "method": "LeWM",
+      "subdir": "reacher_lewm_noise_0to004_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_noise_0to004_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 46,
+      "task": "Reacher",
+      "std_max": "0.04",
+      "method": "PLDM",
+      "subdir": "reacher_pldm_noise_0to004_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to004_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 47,
+      "task": "Reacher",
+      "std_max": "0.05",
+      "method": "LeWM",
+      "subdir": "reacher_lewm_noise_0to005_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_noise_0to005_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 48,
+      "task": "Reacher",
+      "std_max": "0.05",
+      "method": "PLDM",
+      "subdir": "reacher_pldm_noise_0to005_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to005_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 49,
+      "task": "Reacher",
+      "std_max": "0.06",
+      "method": "LeWM",
+      "subdir": "reacher_lewm_noise_0to006_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_noise_0to006_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 50,
+      "task": "Reacher",
+      "std_max": "0.06",
+      "method": "PLDM",
+      "subdir": "reacher_pldm_noise_0to006_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to006_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 51,
+      "task": "Reacher",
+      "std_max": "0.07",
+      "method": "LeWM",
+      "subdir": "reacher_lewm_noise_0to007_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_noise_0to007_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 52,
+      "task": "Reacher",
+      "std_max": "0.07",
+      "method": "PLDM",
+      "subdir": "reacher_pldm_noise_0to007_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to007_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 53,
+      "task": "Reacher",
+      "std_max": "0.08",
+      "method": "LeWM",
+      "subdir": "reacher_lewm_noise_0to008_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_lewm_noise_0to008_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 54,
+      "task": "Reacher",
+      "std_max": "0.08",
+      "method": "PLDM",
+      "subdir": "reacher_pldm_noise_0to008_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-reacher/ckpt/reacher_pldm_noise_0to008_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 55,
+      "task": "TwoRoom",
+      "std_max": "0.0",
+      "method": "LeWM",
+      "subdir": "tworoom_lewm_20260430",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_20260430/epoch_10.ckpt"
+    },
+    {
+      "idx": 56,
+      "task": "TwoRoom",
+      "std_max": "0.0",
+      "method": "PLDM",
+      "subdir": "tworoom_pldm_baseline",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_baseline/epoch_10.ckpt"
+    },
+    {
+      "idx": 57,
+      "task": "TwoRoom",
+      "std_max": "0.01",
+      "method": "LeWM",
+      "subdir": "tworoom_lewm_noise_0to001_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_noise_0to001_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 58,
+      "task": "TwoRoom",
+      "std_max": "0.01",
+      "method": "PLDM",
+      "subdir": "tworoom_pldm_noise_0to001_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to001_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 59,
+      "task": "TwoRoom",
+      "std_max": "0.02",
+      "method": "LeWM",
+      "subdir": "tworoom_lewm_noise_0to002_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_noise_0to002_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 60,
+      "task": "TwoRoom",
+      "std_max": "0.02",
+      "method": "PLDM",
+      "subdir": "tworoom_pldm_noise_0to002_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to002_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 61,
+      "task": "TwoRoom",
+      "std_max": "0.03",
+      "method": "LeWM",
+      "subdir": "tworoom_lewm_noise_0to003_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_noise_0to003_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 62,
+      "task": "TwoRoom",
+      "std_max": "0.03",
+      "method": "PLDM",
+      "subdir": "tworoom_pldm_noise_0to003_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to003_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 63,
+      "task": "TwoRoom",
+      "std_max": "0.04",
+      "method": "LeWM",
+      "subdir": "tworoom_lewm_noise_0to004_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_noise_0to004_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 64,
+      "task": "TwoRoom",
+      "std_max": "0.04",
+      "method": "PLDM",
+      "subdir": "tworoom_pldm_noise_0to004_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to004_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 65,
+      "task": "TwoRoom",
+      "std_max": "0.05",
+      "method": "LeWM",
+      "subdir": "tworoom_lewm_noise_0to005_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_noise_0to005_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 66,
+      "task": "TwoRoom",
+      "std_max": "0.05",
+      "method": "PLDM",
+      "subdir": "tworoom_pldm_noise_0to005_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to005_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 67,
+      "task": "TwoRoom",
+      "std_max": "0.06",
+      "method": "LeWM",
+      "subdir": "tworoom_lewm_noise_0to006_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_noise_0to006_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 68,
+      "task": "TwoRoom",
+      "std_max": "0.06",
+      "method": "PLDM",
+      "subdir": "tworoom_pldm_noise_0to006_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to006_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 69,
+      "task": "TwoRoom",
+      "std_max": "0.07",
+      "method": "LeWM",
+      "subdir": "tworoom_lewm_noise_0to007_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_noise_0to007_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 70,
+      "task": "TwoRoom",
+      "std_max": "0.07",
+      "method": "PLDM",
+      "subdir": "tworoom_pldm_noise_0to007_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to007_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 71,
+      "task": "TwoRoom",
+      "std_max": "0.08",
+      "method": "LeWM",
+      "subdir": "tworoom_lewm_noise_0to008_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_lewm_noise_0to008_p1/epoch_10.ckpt"
+    },
+    {
+      "idx": 72,
+      "task": "TwoRoom",
+      "std_max": "0.08",
+      "method": "PLDM",
+      "subdir": "tworoom_pldm_noise_0to008_p1",
+      "ckpt_path": "dataset/ag_data/data/world_model/quentinll/lewm-tworooms/ckpt/tworoom_pldm_noise_0to008_p1/epoch_10.ckpt"
+    }
+  ],
+  "total": 72,
+  "by_method": {
+    "LeWM": 36,
+    "PLDM": 36
+  },
+  "by_task": {
+    "Cube": 18,
+    "PushT": 18,
+    "Reacher": 18,
+    "TwoRoom": 18
+  }
+}

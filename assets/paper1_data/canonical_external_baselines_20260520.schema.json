@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/qun-team/wm_exp/blob/main/assets/paper1_data/canonical_external_baselines_20260520.schema.json",
+  "title": "canonical_external_baselines_20260520",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["metadata", "baselines"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["description", "protocol", "scope", "std_convention", "source_root"]
+    },
+    "baselines": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["PushT"],
+      "properties": {
+        "PushT": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["PLDM_clean_trained"],
+          "properties": {
+            "PLDM_clean_trained": { "$ref": "#/$defs/baselineEntry" }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "metricSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["n", "mean", "std", "values"],
+      "properties": {
+        "n": { "type": "integer", "const": 3 },
+        "mean": { "type": "number" },
+        "std": { "type": "number", "minimum": 0 },
+        "values": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "baselineEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["citation", "subdir", "training", "evaluation", "diagnostics"],
+      "properties": {
+        "citation": { "type": "string", "minLength": 1 },
+        "subdir": { "type": "string", "minLength": 1 },
+        "training": { "type": "object", "additionalProperties": true },
+        "evaluation": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/metricSummary" },
+          "required": ["clean", "pixels_goal_std0.05", "pixels_goal_std0.08"]
+        },
+        "diagnostics": { "type": "object", "additionalProperties": true }
+      }
+    }
+  }
+}

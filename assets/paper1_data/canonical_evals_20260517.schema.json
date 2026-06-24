@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/qun-team/wm_exp/blob/main/canonical_evals_20260517.schema.json",
+  "title": "canonical_evals_20260517",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["TwoRoom", "PushT", "Reacher", "Cube"],
+  "properties": {
+    "TwoRoom": { "$ref": "#/$defs/taskSweep" },
+    "PushT": { "$ref": "#/$defs/taskSweep" },
+    "Reacher": { "$ref": "#/$defs/taskSweep" },
+    "Cube": { "$ref": "#/$defs/taskSweep" }
+  },
+  "$defs": {
+    "metricSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["n", "mean", "std", "values"],
+      "properties": {
+        "n": { "type": "integer", "const": 3 },
+        "mean": { "type": "number" },
+        "std": { "type": "number", "minimum": 0 },
+        "values": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["clean", "pixels_goal_std0.05", "pixels_goal_std0.08"],
+      "properties": {
+        "clean": { "$ref": "#/$defs/metricSummary" },
+        "pixels_goal_std0.05": { "$ref": "#/$defs/metricSummary" },
+        "pixels_goal_std0.08": { "$ref": "#/$defs/metricSummary" }
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/metricSummary"
+      }
+    },
+    "checkpointEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "subdir", "metrics"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "subdir": { "type": "string", "minLength": 1 },
+        "metrics": { "$ref": "#/$defs/metrics" }
+      }
+    },
+    "taskSweep": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 9,
+      "maxProperties": 9,
+      "required": ["0.0", "0.01", "0.02", "0.03", "0.04", "0.05", "0.06", "0.07", "0.08"],
+      "properties": {
+        "0.0": { "$ref": "#/$defs/checkpointEntry" },
+        "0.01": { "$ref": "#/$defs/checkpointEntry" },
+        "0.02": { "$ref": "#/$defs/checkpointEntry" },
+        "0.03": { "$ref": "#/$defs/checkpointEntry" },
+        "0.04": { "$ref": "#/$defs/checkpointEntry" },
+        "0.05": { "$ref": "#/$defs/checkpointEntry" },
+        "0.06": { "$ref": "#/$defs/checkpointEntry" },
+        "0.07": { "$ref": "#/$defs/checkpointEntry" },
+        "0.08": { "$ref": "#/$defs/checkpointEntry" }
+      }
+    }
+  }
+}

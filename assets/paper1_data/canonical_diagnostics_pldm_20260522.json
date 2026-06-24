@@ -1,0 +1,237 @@
+{
+  "metadata": {
+    "diagnostic_max_std": 0.1,
+    "metric_names": [
+      "predictor_target_to_nn_cos_ratio_at_max_std",
+      "predictor_rollout_T8_l2_at_max_std"
+    ],
+    "schema_version": "pldm-1.0",
+    "source": "per-ckpt eval_results/diagnostics/diagnostics_summary.json"
+  },
+  "predictor_metrics_by_task": {
+    "Cube": {
+      "0.0": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 18.982704162597656,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.3532152568357963e-06,
+        "subdir": "cube_pldm_baseline"
+      },
+      "0.01": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 16.921491622924805,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 5.243068663227213e-06,
+        "subdir": "cube_pldm_noise_0to001_p1"
+      },
+      "0.02": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 12.784820556640625,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.604248049418211e-06,
+        "subdir": "cube_pldm_noise_0to002_p1"
+      },
+      "0.03": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 6.043436527252197,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.5995801678029e-06,
+        "subdir": "cube_pldm_noise_0to003_p1"
+      },
+      "0.04": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 4.017085075378418,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.6989970526952186e-06,
+        "subdir": "cube_pldm_noise_0to004_p1"
+      },
+      "0.05": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.6791743040084839,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.5525017707981036e-06,
+        "subdir": "cube_pldm_noise_0to005_p1"
+      },
+      "0.06": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.8812084794044495,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.477651582723831e-06,
+        "subdir": "cube_pldm_noise_0to006_p1"
+      },
+      "0.07": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.6175117492675781,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.670654844567888e-06,
+        "subdir": "cube_pldm_noise_0to007_p1"
+      },
+      "0.08": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.618172287940979,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.5374721195250868e-06,
+        "subdir": "cube_pldm_noise_0to008_p1"
+      }
+    },
+    "PushT": {
+      "0.0": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 20.248950958251953,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 1.943207808586258e-06,
+        "subdir": "pusht_pldm_baseline"
+      },
+      "0.01": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 20.69831657409668,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.081317057433944e-06,
+        "subdir": "pusht_pldm_noise_0to001_p1"
+      },
+      "0.02": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 17.693464279174805,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.1140654588658355e-06,
+        "subdir": "pusht_pldm_noise_0to002_p1"
+      },
+      "0.03": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 2.81527042388916,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.0762610690668246e-06,
+        "subdir": "pusht_pldm_noise_0to003_p1"
+      },
+      "0.04": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 5.867154598236084,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.1774466607222374e-06,
+        "subdir": "pusht_pldm_noise_0to004_p1"
+      },
+      "0.05": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 2.5115699768066406,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.2430967296210455e-06,
+        "subdir": "pusht_pldm_noise_0to005_p1"
+      },
+      "0.06": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.2706782817840576,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.3342466073184465e-06,
+        "subdir": "pusht_pldm_noise_0to006_p1"
+      },
+      "0.07": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.1529147624969482,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.3119516339718173e-06,
+        "subdir": "pusht_pldm_noise_0to007_p1"
+      },
+      "0.08": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.9260990619659424,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.198653874165542e-06,
+        "subdir": "pusht_pldm_noise_0to008_p1"
+      }
+    },
+    "Reacher": {
+      "0.0": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.4514422416687012,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 5.3304619911407726e-06,
+        "subdir": "reacher_pldm_baseline"
+      },
+      "0.01": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.980398416519165,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 6.124636349716736e-06,
+        "subdir": "reacher_pldm_noise_0to001_p1"
+      },
+      "0.02": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.06510329246521,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 6.2743916977249055e-06,
+        "subdir": "reacher_pldm_noise_0to002_p1"
+      },
+      "0.03": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.9352490901947021,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 6.187276484636992e-06,
+        "subdir": "reacher_pldm_noise_0to003_p1"
+      },
+      "0.04": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.2312943935394287,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 4.933849413982036e-06,
+        "subdir": "reacher_pldm_noise_0to004_p1"
+      },
+      "0.05": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 3.930257797241211,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 7.612783385861539e-06,
+        "subdir": "reacher_pldm_noise_0to005_p1"
+      },
+      "0.06": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.9820977449417114,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 6.5143609086230596e-06,
+        "subdir": "reacher_pldm_noise_0to006_p1"
+      },
+      "0.07": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.779393196105957,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 7.308499053549372e-06,
+        "subdir": "reacher_pldm_noise_0to007_p1"
+      },
+      "0.08": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.5534844398498535,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 6.50586340939772e-06,
+        "subdir": "reacher_pldm_noise_0to008_p1"
+      }
+    },
+    "TwoRoom": {
+      "0.0": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 20.362041473388672,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 0.00010138967219451609,
+        "subdir": "tworoom_pldm_baseline"
+      },
+      "0.01": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 6.859189033508301,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 4.437246244980365e-05,
+        "subdir": "tworoom_pldm_noise_0to001_p1"
+      },
+      "0.02": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 3.101928234100342,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.115685693733339e-05,
+        "subdir": "tworoom_pldm_noise_0to002_p1"
+      },
+      "0.03": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 2.1418356895446777,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 2.1763140856488408e-05,
+        "subdir": "tworoom_pldm_noise_0to003_p1"
+      },
+      "0.04": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.6050364971160889,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 1.1131890640306349e-05,
+        "subdir": "tworoom_pldm_noise_0to004_p1"
+      },
+      "0.05": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.1910905838012695,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 1.1716942112447494e-05,
+        "subdir": "tworoom_pldm_noise_0to005_p1"
+      },
+      "0.06": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 1.0159246921539307,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 1.1371518893778643e-05,
+        "subdir": "tworoom_pldm_noise_0to006_p1"
+      },
+      "0.07": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.8464184999465942,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 1.2212025181195924e-05,
+        "subdir": "tworoom_pldm_noise_0to007_p1"
+      },
+      "0.08": {
+        "diagnostic_max_std": 0.1,
+        "predictor_rollout_T8_l2_at_max_std": 0.8562312722206116,
+        "predictor_target_to_nn_cos_ratio_at_max_std": 1.28e-05,
+        "subdir": "tworoom_pldm_noise_0to008_p1"
+      }
+    }
+  }
+}
