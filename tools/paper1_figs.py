@@ -99,7 +99,7 @@ def _load_canonical_evals() -> Dict:
 
 
 def _canonical_eval_tables() -> Dict[str, Dict]:
-    """Return sweep/base/point-best tables derived directly from canonical eval JSON."""
+    """Return sweep/base/high-observed tables derived directly from canonical eval JSON."""
     if _CANONICAL_TABLES_CACHE:
         return _CANONICAL_TABLES_CACHE
 
@@ -396,8 +396,8 @@ def fig2_sweep(out_path: Path):
         best_std = tables["corrupted_point_best"][t]["std"]
         ax.axvline(best_std, color="#228833", linestyle="--",
                    alpha=0.85, linewidth=1.2,
-                   label=r"Robust-eval optimum $\sigma^\ast$")
-        ax.set_title(rf"{t}   ($\sigma^\ast={best_std:.2f}$)", fontsize=11)
+                   label=r"Highest observed robust eval (not unique)")
+        ax.set_title(rf"{t}   (ref. $\sigma={best_std:.2f}$)", fontsize=11)
         ax.set_xlabel(r"Train-time noise level $\sigma_{\max}$", fontsize=10)
         ax.set_xticks([0, 0.02, 0.04, 0.06, 0.08])
         ax.set_xticklabels(["0", "0.02", "0.04", "0.06", "0.08"])
@@ -703,7 +703,7 @@ def fig6_pareto(out_path: Path):
             ax.scatter(x, y, s=55, marker=markers[task],
                        color=colors[task], alpha=0.55 + 0.05 * SWEEP_STDS[1:].index(s),
                        edgecolor="black", linewidth=0.3, zorder=3)
-        # mark observation-noise 0.08 point-best
+        # mark the highest observed observation-noise 0.08 grid point
         best_std = tables["corrupted_point_best"][task]["std"]
         if best_std in SWEEP_STDS:
             i = SWEEP_STDS.index(best_std)
