@@ -99,7 +99,7 @@ def _load_canonical_evals() -> Dict:
 
 
 def _canonical_eval_tables() -> Dict[str, Dict]:
-    """Return sweep/base/high-observed tables derived directly from canonical eval JSON."""
+    """Return sweep/base/representative-high tables derived directly from canonical eval JSON."""
     if _CANONICAL_TABLES_CACHE:
         return _CANONICAL_TABLES_CACHE
 
@@ -393,11 +393,7 @@ def fig2_sweep(out_path: Path):
                     fmt="s-", color="#EE6677",
                     label=ROBUST_EVAL_LABEL,
                     linewidth=1.7, markersize=4.5, capsize=2.2, elinewidth=0.85)
-        best_std = tables["corrupted_point_best"][t]["std"]
-        ax.axvline(best_std, color="#228833", linestyle="--",
-                   alpha=0.85, linewidth=1.2,
-                   label=r"Highest observed robust eval (not unique)")
-        ax.set_title(rf"{t}   (ref. $\sigma={best_std:.2f}$)", fontsize=11)
+        ax.set_title(t, fontsize=11)
         ax.set_xlabel(r"Train-time noise level $\sigma_{\max}$", fontsize=10)
         ax.set_xticks([0, 0.02, 0.04, 0.06, 0.08])
         ax.set_xticklabels(["0", "0.02", "0.04", "0.06", "0.08"])
@@ -405,11 +401,10 @@ def fig2_sweep(out_path: Path):
         ax.grid(alpha=0.3, linewidth=0.5)
         ax.tick_params(labelsize=9.5)
     axes[0].set_ylabel("Success rate (%)", fontsize=10.5)
-    # Shared legend above the panels so the meaning of each curve and the
-    # dashed vertical line is unambiguous.
+    # Shared legend above the panels so the two evaluation curves are unambiguous.
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="upper center",
-               bbox_to_anchor=(0.5, 1.04), ncol=3,
+               bbox_to_anchor=(0.5, 1.04), ncol=2,
                frameon=False, fontsize=10)
     fig.tight_layout(rect=[0, 0, 1, 0.92])
     fig.savefig(out_path)
@@ -703,7 +698,7 @@ def fig6_pareto(out_path: Path):
             ax.scatter(x, y, s=55, marker=markers[task],
                        color=colors[task], alpha=0.55 + 0.05 * SWEEP_STDS[1:].index(s),
                        edgecolor="black", linewidth=0.3, zorder=3)
-        # mark the highest observed observation-noise 0.08 grid point
+        # Highlight the representative high-corruption observation-noise row.
         best_std = tables["corrupted_point_best"][task]["std"]
         if best_std in SWEEP_STDS:
             i = SWEEP_STDS.index(best_std)
