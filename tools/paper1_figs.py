@@ -3,9 +3,9 @@
 Run:
     python -m tools.paper1_figs --out-dir assets/paper1_figs
 
-Script-generated PNG filenames match the figure numbers in the rendered PDF
-where applicable. The default render set contains only figures still referenced
-by ``paper1/main.tex``:
+Script-generated PNG filenames match the figure numbers used in the released
+manuscript where applicable. The default render set contains only the
+script-generated figures used for the Paper 1 release:
 
     fig2_sweep.png      — unperturbed / observation-noise 0.08 vs sigma_max
 

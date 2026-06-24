@@ -6,16 +6,12 @@
 
 ```bash
 python -m tools.check_paper1_consistency
-cd paper1 && bash build.sh --clean
+python -m tools.paper1_figs --out-dir assets/paper1_figs
 ```
 
 `check_paper1_consistency.py` 是提交前的主检查入口。它验证必需 artifact 是否存在、旧口径字符串是否消失、LeWM/PLDM/blur/ACPC-basin canonical JSON 结构是否完整、正文引用的关键相关系数和 bootstrap CI 是否能从 artifact 复算到相同数值。Paper 1 当前主 corrupted endpoint 是 `pixels_std0.08`：只扰动 observation pixels，goal 保持 clean；`pixels_goal_std0.08` 只作为更强 stress condition。
 
-`paper1/build.sh --clean` 用 `latexmk` 重建 PDF。构建后建议检查 log：
-
-```bash
-rg -n "Overfull|undefined references|Citation .* undefined|Reference .* undefined|Fatal error|Undefined control sequence" paper1/main.log || true
-```
+论文 LaTeX 源码、PDF 和 arXiv 打包脚本不属于公开代码复现分支；本目录只维护训练、评估、诊断和图表 artifact 的复现入口。
 
 ## 图和统计
 
@@ -162,7 +158,7 @@ python -m tools.build_canonical_blur_baselines \
 1. 原始实验数据没有变化时，不要重跑 canonical builders，只运行 checker 和 LaTeX build。
 2. PLDM 或 blur 原始结果变化时，先重建对应 canonical JSON，再重跑 `pldm_correlation_analysis.py` 和 `build_partial_corr_bootstrap.py`。
 3. LeWM canonical eval/diagnostics 变化时，重跑 `paper1_figs.py`，再运行 consistency checker。
-4. 提交前固定执行 `python -m tools.check_paper1_consistency` 和 `cd paper1 && bash build.sh --clean`。
+4. 提交前固定执行 `python -m tools.check_paper1_consistency` 和 `python -m tools.paper1_figs --out-dir assets/paper1_figs`。
 
 ## 低频工具
 

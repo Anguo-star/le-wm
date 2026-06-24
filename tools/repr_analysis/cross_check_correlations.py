@@ -67,7 +67,7 @@ LEWM_PER_TASK_OVERRIDES = {
 # 2026-05-07 LeWM noise-sweep extension (3-seed × 100 ep each). These are
 # *additional* to canonical above and only used for the n=8 within-LeWM
 # correlation (no SWM counterpart yet). Eval values come from per-seed log
-# extraction (see §4.3 data-source note in research_notebook_swm.md). Update if SWM
+# extraction . Update if SWM
 # sweep is added later.
 LEWM_SWEEP_EXTRA = [
     ("LeWM-0to003-p1", "{tk}_lewm_noise_0to003_p1", "LeWM", 0.03),

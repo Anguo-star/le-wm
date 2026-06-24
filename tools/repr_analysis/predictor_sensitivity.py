@@ -13,7 +13,7 @@ References:
         Recently used as a runtime noise indicator by
         "World Model Robustness via Surprise Recognition", arXiv:2512.01119
         (2025); we use it pre-hoc, on calibration data, as a failure
-        predictor (research_notebook_swm.md §7.2).
+        predictor (inline metric definitions).
     - `predictor_rollout_drift(T)` (autoregressive multi-step latent drift
         between noisy- and clean-history conditioning): named here; not
         identified in prior work.

@@ -28,3 +28,16 @@ paper1/*.fls
 paper1/*.log
 paper1/*.out
 paper1/*.synctex.gz
+
+# Manuscript packaging and internal planning notes are intentionally excluded
+# from the public reproducibility code branch.
+paper1/
+paper2/
+assets/diagnostics/
+assets/figures/
+experiments.md
+notes_lewm_bn_removal.md
+plan.md
+plan_*.md
+planner_side_robustification_experiment_plan.md
+research_notebook_swm.md

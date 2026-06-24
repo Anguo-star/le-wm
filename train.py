@@ -187,8 +187,7 @@ def compute_sigma_probe_loss(
 def batch_knn_distance(z: torch.Tensor, k: int = 5, eps: float = 1e-8) -> torch.Tensor:
     """Per-token mean Euclidean distance to k nearest non-self tokens in the
     batch. z: (B, T, D) → (B, T). Used by DGC mode to normalize predictor
-    target shift against local latent neighborhood scale. See
-    plan_adaptive_resolution.md §3.2.5 / §3.8.2 (DGC)."""
+    target shift against local latent neighborhood scale."""
     B, T, D = z.shape
     flat = z.reshape(B * T, D)
     dist = torch.cdist(flat, flat)
@@ -224,8 +223,7 @@ def compute_action_gate_metrics(
 
     All compute is under no_grad and EMA buffers are mutated in-place. Caller
     must provide the model with `gate_log_A_mean`, `gate_log_A_var`,
-    `gate_s_mean`, `gate_s_var` buffers (plus `_inited` flags). See
-    plan_adaptive_resolution.md §8.3.2 for the design rationale.
+    `gate_s_mean`, `gate_s_var` buffers (plus `_inited` flags).
 
     Inputs:
       ctx_emb         (B, T_ctx, D)  — encoder output, used as predictor input
@@ -235,7 +233,7 @@ def compute_action_gate_metrics(
       mode            "full" (default, gA + gS) | "sigma_only" (gS-only ablation;
                       skips K perturbation forwards, sets gA≡0.5, critical = gS*0.5).
                       A_t-only is achieved implicitly by mode=full + s_t=None.
-      intervention    Causal-necessity controls (plan_adaptive_resolution.md §6 P0-2):
+      intervention    Causal-necessity controls:
                         "none"           — real σ+A_t (default).
                         "shuffle_sigma"  — permute s_t over the flattened (B,T) dim
                                            before z-scoring, breaking σ↔state mapping
@@ -249,8 +247,7 @@ def compute_action_gate_metrics(
       fragile_t       Required when mode="dgc". (B, T_ctx) tensor of detached
                       per-token predictor fragility = ||predict(noisy_z, a) -
                       predict(origin_z, a)|| / nn_dist (single-sample). Replaces
-                      the K-perturb action sensitivity A_t. See
-                      plan_adaptive_resolution.md §3.8.2.
+                      the K-perturb action sensitivity A_t.
     """
     if mode not in {"full", "sigma_only", "dgc"}:
         raise ValueError(f"Unsupported action_gate.mode: {mode}")
@@ -293,7 +290,6 @@ def compute_action_gate_metrics(
             # Freeze BN stats during the K perturbation forwards. Otherwise the
             # OOD-ish perturbed activations update BatchNorm running mean/var on
             # every train step, drifting them away from the original-data distribution.
-            # See plan_adaptive_resolution.md §8.3.6.4.
             bn_states = []
             for m in model.modules():
                 if isinstance(m, nn.modules.batchnorm._BatchNorm) and m.training:

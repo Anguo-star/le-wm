@@ -1,5 +1,5 @@
-"""Bootstrap 95% confidence intervals for the partial Spearman
-correlations published in Tables 6, 7 and 16 of paper1/main.tex.
+"""Bootstrap 95% confidence intervals for the released partial Spearman
+correlation artifacts used by Paper 1.
 
 For each (scope, task, metric, outcome, conditioning) cell that the
 paper reports we:

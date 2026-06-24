@@ -12,7 +12,7 @@ i.e. no EMA), then reports Pearson/Spearman correlations between the two
 signals and dumps a scatter plot.
 
 This is a fast (< 1 min on one GPU) sanity check used before kicking off any
-DGC training run. See plan_adaptive_resolution.md §3.8.2 for the full design.
+DGC training run.
 """
 from __future__ import annotations
 

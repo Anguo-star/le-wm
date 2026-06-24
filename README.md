@@ -29,11 +29,25 @@ If you find this code useful, please reference it in your paper:
 ## Using the code
 This codebase builds on [stable-worldmodel](https://github.com/galilai-group/stable-worldmodel) for environment management, planning, and evaluation, and [stable-pretraining](https://github.com/galilai-group/stable-pretraining) for training. Together they reduce this repository to its core contribution: the model architecture and training objective.
 
+## Paper 1 Reproduction
+
+This branch also contains the Paper 1 robustness study release:
+
+- canonical result artifacts: `assets/paper1_data/`
+- generated reference figures: `assets/paper1_figs/`
+- training, eval, and diagnostics scripts: `run_trainer.sh`, `eval.py`, and `tools/`
+- reproducibility instructions: [`PAPER1_REPRODUCTION.md`](PAPER1_REPRODUCTION.md)
+
+For the full Paper 1 training/eval/diagnostic sweep, start from
+`PAPER1_REPRODUCTION.md` rather than the minimal upstream-style examples below.
+The manuscript source and arXiv packaging files are intentionally not included
+in this public code branch.
+
 **Installation:**
 ```bash
 uv venv --python=3.10
 source .venv/bin/activate
-uv pip install stable-worldmodel[train,env]
+uv pip install -r requirements.txt
 ```
 
 ## Data
@@ -44,7 +58,7 @@ Datasets use the HDF5 format for fast loading. Download the data from [HuggingFa
 tar --zstd -xvf archive.tar.zst
 ```
 
-Place the extracted `.h5` files under `$STABLEWM_HOME` (defaults to `~/.stable-wm/`). You can override this path:
+Place the extracted `.h5` files under `$STABLEWM_HOME`. Set it explicitly:
 ```bash
 export STABLEWM_HOME=/path/to/your/storage
 ```

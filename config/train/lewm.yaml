@@ -112,7 +112,7 @@ loss:
       num_proj: 1024
     # Optional scale-aware Wasserstein companion. Use when removing BN
     # (encoder.projection_head.norm_fn=none) leaves SIGReg stuck at a high
-    # constant — see notes_lewm_bn_removal.md §3.1/§5. Two schedule modes:
+    # constant. Two schedule modes:
     #   replace   (legacy) — during warmup: Wass only; after: SIGReg only.
     #                        Has a phase switch that perturbs pred_loss.
     #   add_decay (smooth) — SIGReg always on; Wass at full weight for
@@ -173,8 +173,7 @@ loss:
   # statistics. Does NOT modify the training loss in this stage. Designed
   # to ride on top of `loss.hetero.mode=probe` so σ_t is meaningful; if
   # hetero is off, gS_t falls back to 0.5 (sigma adds no enhancement) and
-  # only A_t-based metrics are informative. See plan_adaptive_resolution.md
-  # §8.3.2 for the full rationale and judgement criteria.
+  # only A_t-based metrics are informative.
   action_gate:
     enabled: false
     mode: full                # full = gA + gS (default); sigma_only = σ-only ablation
@@ -185,8 +184,7 @@ loss:
                               # action sensitivity with single-shot fragility =
                               # ||predict(noisy_z, a) - predict(origin_z, a)|| / nn_dist.
                               # Drops K, delta_scale, chaos discount, warmup; reuses
-                              # noisy encoder forward with adaptive_consistency. See
-                              # plan_adaptive_resolution.md §3.8.2.
+                              # noisy encoder forward with adaptive_consistency.
     dgc_noise_std_max: null   # noise std for the DGC fragility probe; defaults to
                               # adaptive_consistency.noise_std_max when null. Set
                               # equal to it to enable noisy_emb cache reuse.

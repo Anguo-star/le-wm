@@ -6,7 +6,7 @@ scores, with bootstrap confidence intervals. Produces a CSV table and a
 heatmap PNG.
 
 This is the automation backbone of the diagnostic ↔ eval correlation
-workflow described in research_notebook_swm.md §6 P0.4 / P0.7. The intent is to take a
+workflow described in the diagnostic-correlation workflow. The intent is to take a
 fixed set of label-free diagnostic indicators (from `run_full_diagnostics`)
 and rank them by predictive value against measured eval scores, so that
 strong indicators can be promoted to "main metric" status (P0.5) and weak

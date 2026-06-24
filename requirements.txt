@@ -1,9 +1,21 @@
 # Base training/eval stack used by this repo.
 stable-worldmodel[train,env]
 
-# Direct imports used by wm_exp scripts.
+# Direct imports used by the Paper 1 training, eval, and diagnostics scripts.
+einops
+gymnasium
+hydra-core
+lightning
+loguru
+numpy
+omegaconf
+pandas
 pre-commit
 scikit-learn
+torch
+torchvision
+transformers
 umap-learn
 matplotlib
 swanlab
+wandb

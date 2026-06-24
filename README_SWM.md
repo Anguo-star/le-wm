@@ -6,8 +6,6 @@ An experimental variant of [LeWorldModel](README.md) that replaces Euclidean rep
 
 LeWM achieves competitive control performance but scores only 87% on Two-Room, below simpler baselines (100%). A plausible cause: SIGReg forces embeddings toward an isotropic Gaussian, which over-constrains low-intrinsic-dimension environments like Two-Room (2D state space). This experiment asks whether replacing the Euclidean geometry with spherical geometry improves performance on that benchmark.
 
-Full motivation and experimental design: [`plan_v2.md`](plan_v2.md).
-
 ## What changes from LeWM
 
 | Component | LeWM | SWM (V0) |

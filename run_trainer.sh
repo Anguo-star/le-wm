@@ -18,8 +18,7 @@
 #   loss_sigreg_weight (lewm anti-collapse, default 0.09),
 #   loss_sigreg_warmup_type (lewm-only; none | wasserstein. Adds a scale-aware
 #                            sliced-Wasserstein companion to SIGReg; intended
-#                            for BN-free training where SIGReg gets stuck; see
-#                            notes_lewm_bn_removal.md §3.1/§5),
+#                            for BN-free training where SIGReg gets stuck),
 #   loss_sigreg_warmup_mode (replace | add_decay; default replace.
 #                            replace   = Wass replaces SIGReg during warmup,
 #                                        only SIGReg after (legacy, has a
@@ -58,9 +57,7 @@
 #   loss_action_gate_mode (full | sigma_only; sigma_only skips A_t perturb
 #                          and sets critical=gS*0.5, requires hetero_mode=probe),
 #   loss_action_gate_intervention (none | shuffle_sigma | shuffle_action |
-#                                  random_gate | constant_w; causal-necessity
-#                                  controls, see plan_adaptive_resolution.md
-#                                  §3.8.1 P0-2),
+#                                  random_gate | constant_w; causal controls),
 #   loss_action_gate_delta_scale, loss_action_gate_num_delta_samples,
 #   loss_action_gate_warmup_epochs, loss_action_gate_ema_momentum,
 #   loss_action_gate_w_min, loss_action_gate_w_max,
@@ -127,6 +124,10 @@
 #   eval_epoch                用于 eval 的 epoch 编号；默认读取训练 config 的 trainer.max_epochs
 #   eval_seeds                eval sweep 的 seed 数量；默认 3。每个 seed 跑 num_eval/eval_seeds 次
 #   eval_base_seed            首 seed；不传则读取 config/eval/<dataset_name>.yaml 顶层 seed；后续 seed = base+1, base+2, ...
+#   logger_backend            none | swanlab | wandb；默认：
+#                              - 若设置 SWANLAB_API_KEY，则用 swanlab
+#                              - 否则用 none，便于公开复现环境无登录运行
+#   swanlab_enabled           True | False；默认由 logger_backend 推断
 #
 # 用法示例：
 #   dataset_name=tworoom trainer_file=train_swm.py config=swm \
@@ -363,7 +364,32 @@ add_override "image_noise.apply_to_val" "${image_noise_apply_to_val:-}"
 if [ "${skip_train:-0}" = "1" ]; then
     echo "[train] skipped (skip_train=1)"
 else
-    swanlab login -k "${SWANLAB_API_KEY}"
+    if [ -n "${logger_backend:-}" ]; then
+        train_logger_backend="${logger_backend}"
+    elif [ -n "${SWANLAB_API_KEY:-}" ]; then
+        train_logger_backend="swanlab"
+    else
+        train_logger_backend="none"
+    fi
+
+    if [ -n "${swanlab_enabled:-}" ]; then
+        train_swanlab_enabled="${swanlab_enabled}"
+    elif [ "${train_logger_backend}" = "swanlab" ]; then
+        train_swanlab_enabled="True"
+    else
+        train_swanlab_enabled="False"
+    fi
+
+    if [ "${train_logger_backend}" = "swanlab" ] && [ "${train_swanlab_enabled}" != "False" ]; then
+        if [ -n "${SWANLAB_API_KEY:-}" ]; then
+            swanlab login -k "${SWANLAB_API_KEY}"
+        else
+            echo "[train] SWANLAB_API_KEY not set; disabling SwanLab logger for this run"
+            train_logger_backend="none"
+            train_swanlab_enabled="False"
+        fi
+    fi
+
     # Defensive: if STABLEWM_HOME already points to a lewm-* subdir, go up one level first
     if [[ "$(basename "$STABLEWM_HOME")" == lewm-* ]]; then
         export STABLEWM_HOME="$(dirname "$STABLEWM_HOME")/lewm-${dataset_dirname}"
@@ -375,8 +401,8 @@ else
     echo "[train] starting ${trainer_file} for ${output_model_name}"
     echo "==================================================="
     python ${trainer_file} --config-name="${config_name}" \
-        logger_backend=swanlab \
-        swanlab.enabled=True \
+        logger_backend="${train_logger_backend}" \
+        swanlab.enabled="${train_swanlab_enabled}" \
         "${CMD_ARGS[@]}"
 
     train_status=$?

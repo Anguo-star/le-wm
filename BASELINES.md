@@ -14,6 +14,17 @@ Both training scripts are thin wrappers around the upstream
 the Hydra entry point; model code, losses, and forwards are imported from
 the upstream package.
 
+`train_pldm.py` uses components available from the installed
+`stable_worldmodel` package. `train_prejepa.py` additionally imports helper
+functions from the upstream script file. Before running DINO-WM / PreJEPA,
+either clone the upstream repo into `external/stable-worldmodel` or set
+`STABLE_WORLDMODEL_REPO`:
+
+```bash
+git clone https://github.com/galilai-group/stable-worldmodel external/stable-worldmodel
+export STABLE_WORLDMODEL_REPO="$PWD/external/stable-worldmodel"
+```
+
 ## Why two scripts?
 
 LeWM (`jepa.py::JEPA.encode`) and PLDM (upstream `pldm.py::PLDM.encode`)

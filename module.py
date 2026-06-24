@@ -48,7 +48,7 @@ class WassersteinSIGReg(torch.nn.Module):
     has a scale-aware gradient that actively pulls each projected marginal onto
     ``N(0, 1)`` regardless of its current scale. It is meant as a warmup that
     fixes embedding scale so the Epps-Pulley SIGReg's knots become well-aligned
-    afterwards (see notes_lewm_bn_removal.md §3.1).
+    afterwards. It is disabled by default.
     """
 
     def __init__(self, num_proj=1024):

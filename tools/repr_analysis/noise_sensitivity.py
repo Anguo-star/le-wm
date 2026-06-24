@@ -25,7 +25,7 @@ References for the indicators emitted here:
         Revisited", ICML 2019.
     - `noise_to_nn_cos_ratio_*`, `robust_radius_std`,
         `noise_angle_slope_deg_per_std`: composite ratios introduced by this
-        toolkit; see research_notebook_swm.md §7.2 for novelty discussion.
+        toolkit; see inline metric definitions for novelty discussion.
 
 Notebook use:
 
@@ -368,7 +368,7 @@ def _require_matplotlib():
 
 # `_interpolate_threshold` and `_near_zero_slope` underpin the empirical
 # `robust_radius_std` and `noise_angle_slope_deg_per_std` summary indicators.
-# These are composite ratios introduced by this toolkit (research_notebook_swm.md §7.2);
+# These are composite ratios introduced by this toolkit (inline metric definitions);
 # the underlying idea echoes the certified radius framing of Cohen et al.
 # (Randomized Smoothing, ICML 2019), but here applied to a *planning latent*
 # rather than a classifier output, and produced empirically without

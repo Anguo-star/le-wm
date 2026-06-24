@@ -78,6 +78,7 @@ SWEEP_VARS=(
     diagnostic_skip_predictor diagnostic_skip_resolution
     diagnostic_skip_latent_noise diagnostic_skip_action_effect
     run_cross_check_correlations
+    logger_backend swanlab_enabled
 )
 
 split_values_for_var() {

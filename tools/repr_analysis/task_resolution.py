@@ -22,7 +22,7 @@ References for the indicators emitted here:
         (Sun et al., KNN-OOD, NeurIPS 2022); the pair distance median is
         a discrete analogue of Wang & Isola L_uniform (ICML 2020).
     - `transition_resolution_ratio_*`: temporal-neighbor variant of the
-        retrieval intra/inter-class gap; named here. See research_notebook_swm.md §7.2.
+        retrieval intra/inter-class gap; named here. See inline metric definitions.
 
 Two indicators per checkpoint × dataset:
 
