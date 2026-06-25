@@ -14,6 +14,7 @@ Set one local prefix and keep all paths below it.
 uv venv --python=3.10
 source .venv/bin/activate
 uv pip install -r requirements.txt
+python -c "import torch, stable_worldmodel, stable_pretraining, sklearn; print('paper1 env ok')"
 ```
 
 The LeWM, SWM, PLDM, eval, and diagnostics paths use packages installed from
@@ -180,6 +181,9 @@ Qualitative PushT figures:
 ```bash
 STABLEWM_HOME="$PAPER1_DATA_ROOT" python -m tools.paper1_selective_contraction \
   --plot-clusters --plot-tasks PushT \
+  --n-sequences 128 --cluster-anchor-count 16 \
+  --view-stds 0.0 0.01 0.04 0.08 \
+  --cluster-perturb-repeats 6 \
   --cluster-out-dir assets/paper1_figs \
   --cluster-envelope ellipse --cluster-envelope-coverage 0.90
 

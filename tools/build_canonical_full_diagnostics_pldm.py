@@ -143,8 +143,8 @@ def build(root: Path, out_path: Path, schema_path: Path | None = None) -> dict:
             "configs": list(EXPECTED_CONFIGS),
             "summary_metric_order": list(SUMMARY_METRICS),
             "representative_selection": (
-                "Representative rows use the PLDM pixels 0.08 clean-goal point-best checkpoint "
-                "per task, except where explicitly interpreted as a diagnostic representative."
+                "Representative rows use one PLDM pixels 0.08 clean-goal display reference "
+                "row per task, except where explicitly interpreted as a diagnostic representative."
             ),
         },
         "diagnostics_by_task": diagnostics,

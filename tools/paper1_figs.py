@@ -107,8 +107,8 @@ def _canonical_eval_tables() -> Dict[str, Dict]:
     tasks = ["TwoRoom", "PushT", "Reacher", "Cube"]
     sweep: Dict[str, Dict[str, List[float]]] = {}
     base: Dict[str, Dict[str, float]] = {}
-    clean_point_best: Dict[str, Dict[str, float]] = {}
-    corrupted_point_best: Dict[str, Dict[str, float]] = {}
+    clean_reference_rows: Dict[str, Dict[str, float]] = {}
+    corrupted_reference_rows: Dict[str, Dict[str, float]] = {}
 
     for task in tasks:
         rows = {float(k): v for k, v in canon[task].items()}
@@ -132,12 +132,12 @@ def _canonical_eval_tables() -> Dict[str, Dict]:
 
         clean_idx = int(np.argmax(clean_vals))
         px08_idx = int(np.argmax(px08_vals))
-        clean_point_best[task] = {
+        clean_reference_rows[task] = {
             "std": SWEEP_STDS[clean_idx],
             "clean": clean_vals[clean_idx],
             "px08": px08_vals[clean_idx],
         }
-        corrupted_point_best[task] = {
+        corrupted_reference_rows[task] = {
             "std": SWEEP_STDS[px08_idx],
             "clean": clean_vals[px08_idx],
             "px08": px08_vals[px08_idx],
@@ -147,8 +147,8 @@ def _canonical_eval_tables() -> Dict[str, Dict]:
         "tasks": tasks,
         "sweep": sweep,
         "base": base,
-        "clean_point_best": clean_point_best,
-        "corrupted_point_best": corrupted_point_best,
+        "clean_reference_rows": clean_reference_rows,
+        "corrupted_reference_rows": corrupted_reference_rows,
     })
     return _CANONICAL_TABLES_CACHE
 
@@ -698,14 +698,6 @@ def fig6_pareto(out_path: Path):
             ax.scatter(x, y, s=55, marker=markers[task],
                        color=colors[task], alpha=0.55 + 0.05 * SWEEP_STDS[1:].index(s),
                        edgecolor="black", linewidth=0.3, zorder=3)
-        # Highlight the representative high-corruption observation-noise row.
-        best_std = tables["corrupted_point_best"][task]["std"]
-        if best_std in SWEEP_STDS:
-            i = SWEEP_STDS.index(best_std)
-            ax.scatter(xs[i], ys[i], s=180, marker=markers[task],
-                       facecolor="none", edgecolor=colors[task],
-                       linewidth=2.0, zorder=5)
-
     # Diagonal y=x — ckpts on or above this diagonal are "corrupted ≥ unperturbed"
     lo, hi = 0, 100
     ax.plot([lo, hi], [lo, hi], "--", color="gray", linewidth=0.8, alpha=0.5)

@@ -498,7 +498,7 @@ def _draw_circle_envelope(plt, ax, points: np.ndarray, color: Any, min_radius: f
             radius_2d,
             facecolor=color,
             edgecolor="none",
-            alpha=0.105,
+            alpha=0.055,
             zorder=1,
         )
     )
@@ -508,8 +508,8 @@ def _draw_circle_envelope(plt, ax, points: np.ndarray, color: Any, min_radius: f
             radius_2d,
             fill=False,
             edgecolor=color,
-            alpha=0.55,
-            linewidth=0.95,
+            alpha=0.38,
+            linewidth=0.75,
             zorder=2,
         )
     )
@@ -542,7 +542,7 @@ def _draw_cluster_envelope(
                     closed=True,
                     facecolor=color,
                     edgecolor="none",
-                    alpha=0.105,
+                    alpha=0.055,
                     zorder=1,
                 )
             )
@@ -552,8 +552,8 @@ def _draw_cluster_envelope(
                     closed=True,
                     fill=False,
                     edgecolor=color,
-                    alpha=0.55,
-                    linewidth=0.95,
+                    alpha=0.38,
+                    linewidth=0.75,
                     zorder=2,
                 )
             )
@@ -592,7 +592,7 @@ def _draw_cluster_envelope(
             angle=angle,
             facecolor=color,
             edgecolor="none",
-            alpha=0.105,
+            alpha=0.055,
             zorder=1,
         )
     )
@@ -604,8 +604,8 @@ def _draw_cluster_envelope(
             angle=angle,
             fill=False,
             edgecolor=color,
-            alpha=0.62,
-            linewidth=0.95,
+            alpha=0.38,
+            linewidth=0.75,
             zorder=2,
         )
     )
@@ -1135,6 +1135,7 @@ def render_cluster_task(
     perturb_repeats: int,
     envelope: str,
     envelope_coverage: float,
+    anchor_selection: str,
 ) -> Path:
     plt = _ensure_plot_deps()
     cluster_view_stds = _expanded_view_stds(view_stds, perturb_repeats)
@@ -1151,21 +1152,41 @@ def render_cluster_task(
         frameskip=frameskip,
     )
 
-    anchors = _select_spread_anchors(encoded["fullseq_robust"]["predictor"][0], anchor_count)
-    colors = plt.cm.turbo(np.linspace(0.05, 0.95, max(1, len(anchors))))
     label_by_spec = _display_labels(summary, specs[1].std_key)
     feature_by_name = {
         "encoder": "Encoder features",
         "predictor": "Predictor H8 features",
     }
-
-    fig, axes = plt.subplots(2, 2, figsize=(7.4, 7.2))
     panels = [
         ("base", "encoder"),
         ("base", "predictor"),
         ("fullseq_robust", "encoder"),
         ("fullseq_robust", "predictor"),
     ]
+    if anchor_selection == "random":
+        n_states = int(encoded["fullseq_robust"]["predictor"].shape[1])
+        count = min(int(anchor_count), n_states)
+        rng_seed = int(seed) + 1009
+        rng = np.random.default_rng(rng_seed)
+        anchors = np.sort(rng.choice(n_states, size=count, replace=False)).astype(int)
+        anchor_selection_meta = {
+            "strategy": "fixed_seed_random",
+            "seed": rng_seed,
+            "selected": [int(x) for x in anchors.tolist()],
+            "note": "Paper-facing anchors are a fixed-seed random subset; t-SNE and high-D statistics are not used for selection.",
+        }
+    elif anchor_selection == "spread":
+        anchors = _select_spread_anchors(encoded["fullseq_robust"]["predictor"][0], anchor_count)
+        anchor_selection_meta = {
+            "strategy": "spread",
+            "selected": [int(x) for x in anchors.tolist()],
+            "note": "Legacy farthest-point anchor selection in robust predictor high-D space.",
+        }
+    else:
+        raise ValueError(f"Unknown cluster anchor selection: {anchor_selection}")
+    colors = plt.cm.turbo(np.linspace(0.05, 0.95, max(1, len(anchors))))
+
+    fig, axes = plt.subplots(2, 2, figsize=(7.4, 7.2))
     sample_shapes = {
         f"{label}:{feature}": encoded[label][feature].shape[:2]
         for label, feature in panels
@@ -1295,6 +1316,7 @@ def render_cluster_task(
             "rollout_horizon": int(rollout_horizon),
             "seed": int(seed),
             "anchor_indices": [int(x) for x in anchors.tolist()],
+            "anchor_selection": anchor_selection_meta,
             "panels": panel_point_counts,
             "note": (
                 "All four cluster panels must have identical view_count_per_state "
@@ -1475,6 +1497,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--cluster-perturb-repeats", type=int, default=6)
     p.add_argument("--cluster-envelope", choices=["ellipse", "hull", "circle", "none"], default="ellipse")
     p.add_argument("--cluster-envelope-coverage", type=float, default=0.90)
+    p.add_argument("--cluster-anchor-selection", choices=["random", "spread"], default="random")
     p.add_argument("--atlas-anchor-count", type=int, default=24)
     p.add_argument("--atlas-neighbor-count", type=int, default=8)
     return p
@@ -1553,6 +1576,7 @@ def main() -> None:
                 perturb_repeats=args.cluster_perturb_repeats,
                 envelope=args.cluster_envelope,
                 envelope_coverage=args.cluster_envelope_coverage,
+                anchor_selection=args.cluster_anchor_selection,
             )
             print(f"[selective-contraction] wrote {out}")
 
