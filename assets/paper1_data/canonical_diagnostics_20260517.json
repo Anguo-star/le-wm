@@ -4,8 +4,9 @@
     "diagnostic_max_std_selection": "Per checkpoint, metrics are taken from the max-std history-only row of eval_results/diagnostics/predictor_sensitivity.json.",
     "history_noise_only": true,
     "related_eval_source": "canonical_evals_20260517.json",
-    "scope": "4 tasks \u00d7 9 checkpoints with predictor metrics for Table 4 / Table 4b / Figure 3, plus finalized Table 3 representative diagnostic values.",
-    "table3_revision_20260610": "TwoRoom and PushT representative values were re-extracted on 2026-06-10 from tworoom_lewm_noise_0to008_p1 and pusht_lewm_noise_0to002_p1 eval_results/diagnostics/diagnostics_summary.json after an audit found the previous entries duplicated the corresponding *_lewm_hetero_default diagnostics. Reacher and Cube entries were verified against the same per-checkpoint files and left unchanged."
+    "scope": "4 tasks \u00d7 9 checkpoints with predictor metrics for Table 4 / Table 4b / Figure 3, plus finalized Table 3 fixed-0.08 diagnostic values.",
+    "table3_revision_20260610": "TwoRoom and PushT representative values were re-extracted on 2026-06-10 from tworoom_lewm_noise_0to008_p1 and pusht_lewm_noise_0to002_p1 eval_results/diagnostics/diagnostics_summary.json after an audit found the previous entries duplicated the corresponding *_lewm_hetero_default diagnostics. Reacher and Cube entries were verified against the same per-checkpoint files and left unchanged.",
+    "table3_revision_20260625": "Table 3 was changed from per-task representative diagnostic checkpoints to a fixed train-time noise checkpoint, stdmax=0.08, for all four LeWM tasks. The retained table3_representative_diagnostics key is backward-compatible; its representative entries now mean the fixed high-noise intervention checkpoint."
   },
   "predictor_metrics_by_task": {
     "Cube": {
@@ -321,9 +322,9 @@
       "action_mean_pred_shift_norm"
     ],
     "representative_std_by_task": {
-      "Cube": 0.01,
-      "PushT": 0.02,
-      "Reacher": 0.06,
+      "Cube": 0.08,
+      "PushT": 0.08,
+      "Reacher": 0.08,
       "TwoRoom": 0.08
     },
     "values": {
@@ -337,12 +338,12 @@
           "transition_resolution_ratio_l2": 0.4847
         },
         "representative": {
-          "action_mean_pred_shift_norm": 0.232,
-          "clean_effective_rank": 71.83,
-          "clean_nn_cos_dist_median": 0.1879,
-          "id_probe_r2": 0.672,
-          "transition_resolution_ratio_cos": 0.2168,
-          "transition_resolution_ratio_l2": 0.4629
+          "action_mean_pred_shift_norm": 0.2573,
+          "clean_effective_rank": 74.97,
+          "clean_nn_cos_dist_median": 0.1587,
+          "id_probe_r2": 0.6342,
+          "transition_resolution_ratio_cos": 0.2557,
+          "transition_resolution_ratio_l2": 0.5085
         }
       },
       "PushT": {
@@ -355,12 +356,12 @@
           "transition_resolution_ratio_l2": 0.3015
         },
         "representative": {
-          "action_mean_pred_shift_norm": 0.1305,
-          "clean_effective_rank": 77.41,
-          "clean_nn_cos_dist_median": 0.2477,
-          "id_probe_r2": 0.769,
-          "transition_resolution_ratio_cos": 0.0867,
-          "transition_resolution_ratio_l2": 0.2989
+          "action_mean_pred_shift_norm": 0.1208,
+          "clean_effective_rank": 78.08,
+          "clean_nn_cos_dist_median": 0.2191,
+          "id_probe_r2": 0.7647,
+          "transition_resolution_ratio_cos": 0.0759,
+          "transition_resolution_ratio_l2": 0.2789
         }
       },
       "Reacher": {
@@ -373,12 +374,12 @@
           "transition_resolution_ratio_l2": 0.3704
         },
         "representative": {
-          "action_mean_pred_shift_norm": 0.2585,
-          "clean_effective_rank": 65.92,
-          "clean_nn_cos_dist_median": 0.0676,
-          "id_probe_r2": 0.1729,
-          "transition_resolution_ratio_cos": 0.1399,
-          "transition_resolution_ratio_l2": 0.3791
+          "action_mean_pred_shift_norm": 0.2619,
+          "clean_effective_rank": 66.2,
+          "clean_nn_cos_dist_median": 0.0664,
+          "id_probe_r2": 0.1767,
+          "transition_resolution_ratio_cos": 0.144,
+          "transition_resolution_ratio_l2": 0.3831
         }
       },
       "TwoRoom": {

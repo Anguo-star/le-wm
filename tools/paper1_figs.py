@@ -3,9 +3,9 @@
 Run:
     python -m tools.paper1_figs --out-dir assets/paper1_figs
 
-Script-generated PNG filenames match the figure numbers used in the released
-manuscript where applicable. The default render set contains only the
-script-generated figures used for the Paper 1 release:
+Script-generated PNG filenames match the figure numbers in the rendered PDF
+where applicable. The default render set contains only figures still referenced
+by ``paper1/main.tex``:
 
     fig2_sweep.png      — unperturbed / observation-noise 0.08 vs sigma_max
 
@@ -49,7 +49,7 @@ SWEEP_STDS = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08]
 ROBUST_EVAL_METRIC = "pixels_std0.08"
 ROBUST_EVAL_LABEL = r"Eval: observation noise $\sigma=0.08$ (unperturbed goal)"
 
-# §4.4 Table 3 — 6 diagnostic metrics × {base, representative} × 4 tasks
+# §4.4 Table 3 — 6 diagnostic metrics × {base, fixed 0.08} × 4 tasks
 # Metric order chosen so "compression" metrics group on one side of the radar.
 DIAG_METRICS = [
     "clean_effective_rank",
@@ -170,7 +170,7 @@ def _load_canonical_diagnostics() -> Dict:
 
 
 def _canonical_diag_tables() -> Dict[str, Dict]:
-    """Return Table 3 representative diagnostics derived from canonical JSON."""
+    """Return Table 3 fixed-0.08 diagnostics derived from canonical JSON."""
     if _CANONICAL_DIAG_TABLES_CACHE:
         return _CANONICAL_DIAG_TABLES_CACHE
 
@@ -520,8 +520,8 @@ def fig3_scatter(out_path: Path, data_root: Path):
 
 # ============================================================================
 # Figure 4 — Radar: 4 tasks × 6 diagnostic metrics
-# base vs representative diagnostic checkpoint.
-# Metrics are normalized per-task to [0,1] using the wider of {base, representative}
+# base vs fixed-0.08 diagnostic checkpoint.
+# Metrics are normalized per-task to [0,1] using the wider of {base, fixed 0.08}
 # extents so radial axes are visually comparable.
 # ============================================================================
 
@@ -571,7 +571,7 @@ def fig4_radar(out_path: Path):
         ax.fill(angles, base, alpha=0.18, color="#4477AA")
         diag_std = diag_representative[t]["std"]
         ax.plot(angles, representative, "s-", linewidth=1.6, color="#228833",
-                label=f"representative diag (σ={diag_std:.3f})", markersize=4.5)
+                label=f"fixed-noise diag (σ={diag_std:.3f})", markersize=4.5)
         ax.fill(angles, representative, alpha=0.18, color="#228833")
         ax.set_xticks(angles[:-1])
         ax.set_xticklabels(short_names, fontsize=9)

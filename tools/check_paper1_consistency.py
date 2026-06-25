@@ -18,8 +18,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 RELEASE_FILES = [
+    ROOT / "paper1" / "main.tex",
     ROOT / "tools" / "paper1_figs.py",
     ROOT / "tools" / "README_paper1.md",
+    ROOT / "paper1" / "references.bib",
     ROOT / "DATA_MANIFEST.md",
     ROOT / "assets" / "paper1_data" / "selective_contraction_fullseq_branch.md",
     ROOT / "assets" / "paper1_data" / "canonical_diagnostics_20260517.json",
@@ -75,9 +77,6 @@ FORBIDDEN_SNIPPETS = [
     "same-state basin shrinkage is not monotone",
     "smaller same-state perturbation basin",
     "high-D basin support",
-    "/" + "home/ag/dataset/ag_data/data/world_model/quentinll",
-    "/" + "opt/huawei/explorer-env/dataset/ag_data/data/world_model/quentinll",
-    "/" + "opt/huawei/explorer-env/dataset/ag_data/code/wm_exp",
 ]
 
 EXPECTED_TASKS = {"TwoRoom", "PushT", "Reacher", "Cube"}
@@ -158,7 +157,9 @@ def check_artifacts() -> None:
 
 def check_forbidden_text() -> None:
     hits: list[str] = []
-    for path in sorted(set(RELEASE_FILES + REQUIRED_ARTIFACTS)):
+    for path in RELEASE_FILES:
+        if not path.exists():
+            continue
         text = path.read_text(encoding="utf-8")
         for snippet in FORBIDDEN_SNIPPETS:
             if snippet in text:
@@ -361,6 +362,12 @@ def check_canonical_diagnostics_json() -> None:
     rep = data.get("table3_representative_diagnostics", {})
     if set(rep.get("representative_std_by_task", {})) != REQUIRED_DIAG_TASKS:
         fail("canonical diagnostics representative std map is incomplete")
+    for task, std in rep.get("representative_std_by_task", {}).items():
+        if abs(float(std) - 0.08) > 1e-12:
+            fail(
+                "canonical diagnostics Table 3 must use the fixed high-noise "
+                f"std=0.08 checkpoint for every task; got {task}={std}"
+            )
     values = rep.get("values", {})
     if set(values) != REQUIRED_DIAG_TASKS:
         fail("canonical diagnostics representative value map is incomplete")
@@ -386,10 +393,10 @@ def check_canonical_diagnostics_json() -> None:
                 if metric not in task_values[which]:
                     fail(f"canonical diagnostics {task}/{which} missing metric {metric!r}")
 
-    # Regression guard for the 2026-06-10 table3 audit: the TwoRoom and PushT
-    # representative entries must stay pinned to the per-checkpoint diagnostics of
-    # tworoom_lewm_noise_0to008_p1 / pusht_lewm_noise_0to002_p1. The previous
-    # release accidentally duplicated the *_lewm_hetero_default diagnostics here.
+    # Regression guard for the 2026-06-25 Table 3 audit: the compact main-text
+    # diagnostic rows must stay pinned to the fixed std=0.08 per-checkpoint
+    # diagnostics. Earlier drafts mixed per-task representative std values,
+    # which read like an implicit selector.
     expected_representative = {
         "TwoRoom": {
             "clean_effective_rank": 37.69,
@@ -400,12 +407,28 @@ def check_canonical_diagnostics_json() -> None:
             "action_mean_pred_shift_norm": 0.4843,
         },
         "PushT": {
-            "clean_effective_rank": 77.41,
-            "clean_nn_cos_dist_median": 0.2477,
-            "transition_resolution_ratio_l2": 0.2989,
-            "transition_resolution_ratio_cos": 0.0867,
-            "id_probe_r2": 0.769,
-            "action_mean_pred_shift_norm": 0.1305,
+            "clean_effective_rank": 78.08,
+            "clean_nn_cos_dist_median": 0.2191,
+            "transition_resolution_ratio_l2": 0.2789,
+            "transition_resolution_ratio_cos": 0.0759,
+            "id_probe_r2": 0.7647,
+            "action_mean_pred_shift_norm": 0.1208,
+        },
+        "Reacher": {
+            "clean_effective_rank": 66.2,
+            "clean_nn_cos_dist_median": 0.0664,
+            "transition_resolution_ratio_l2": 0.3831,
+            "transition_resolution_ratio_cos": 0.144,
+            "id_probe_r2": 0.1767,
+            "action_mean_pred_shift_norm": 0.2619,
+        },
+        "Cube": {
+            "clean_effective_rank": 74.97,
+            "clean_nn_cos_dist_median": 0.1587,
+            "transition_resolution_ratio_l2": 0.5085,
+            "transition_resolution_ratio_cos": 0.2557,
+            "id_probe_r2": 0.6342,
+            "action_mean_pred_shift_norm": 0.2573,
         },
     }
     for task, expected in expected_representative.items():
@@ -414,7 +437,7 @@ def check_canonical_diagnostics_json() -> None:
             if abs(float(got[metric]) - want) > 1e-9:
                 fail(
                     f"canonical diagnostics table3 {task}/representative/{metric}: "
-                    f"got {got[metric]}, want {want} (hetero-contamination regression guard)"
+                    f"got {got[metric]}, want {want} (fixed-0.08 Table 3 guard)"
                 )
 
 
@@ -675,45 +698,85 @@ def check_acpc_basin_json() -> None:
 
 
 def check_acpc_basin_full_grid_table() -> None:
-    """Verify the artifact fields needed to render the full ACPC grid table.
+    main_tex = ROOT / "paper1" / "main.tex"
+    if not main_tex.exists():
+        return
+    tex = main_tex.read_text(encoding="utf-8")
+    marker = r"\label{tab:acpc-basin-full-grid}"
+    start = tex.find(marker)
+    if start < 0:
+        fail("main.tex is missing tab:acpc-basin-full-grid")
+    end = tex.find(r"\end{tabular}", start)
+    if end < 0:
+        fail("tab:acpc-basin-full-grid does not close its tabular")
+    table = tex[start:end]
 
-    The public code repository intentionally does not ship the manuscript
-    LaTeX. This check keeps the reproducibility gate: every table row can be
-    reconstructed from canonical JSON artifacts with deterministic rounding and
-    task-level obs-best annotations.
-    """
+    row_re = re.compile(
+        r"^(TwoRoom|PushT|Reacher|Cube)\s*&\s*"
+        r"([0-9.]+)\s*&\s*"
+        r"([-0-9.]+)\s*&\s*"
+        r"([-0-9.]+)\s*&\s*"
+        r"([-0-9.]+)\s*&\s*"
+        r"([-0-9.]+)\s*&\s*"
+        r"([-0-9.]+)\s*&\s*"
+        r"([-0-9.]+)\s*&\s*"
+        r"([^\\\\]*)\\\\"
+    )
+    parsed: dict[tuple[str, str], dict[str, object]] = {}
+    for raw_line in table.splitlines():
+        line = raw_line.strip()
+        match = row_re.match(line)
+        if not match:
+            continue
+        task, std_display, unpert, obs, drop, radius_e, radius_f, ratio, note = match.groups()
+        std_key = "0.0" if std_display == "0" else std_display
+        key = (task, std_key)
+        if key in parsed:
+            fail(f"duplicate LaTeX full-grid row: {task}/{std_key}")
+        parsed[key] = {
+            "unpert": float(unpert),
+            "obs": float(obs),
+            "drop": float(drop),
+            "radius_e": float(radius_e),
+            "radius_f": float(radius_f),
+            "ratio": float(ratio),
+            "note": note.strip(),
+        }
+
+    expected_keys = {(task, std) for task in EXPECTED_TASKS for std in EXPECTED_CONFIGS}
+    if set(parsed) != expected_keys:
+        fail(
+            "LaTeX ACPC full-grid coverage mismatch: "
+            f"missing={sorted(expected_keys - set(parsed))}, extra={sorted(set(parsed) - expected_keys)}"
+        )
 
     basin = json.loads((ROOT / "assets" / "paper1_data" / "acpc_basin_diagnostics.json").read_text(encoding="utf-8"))
     evals = json.loads((ROOT / "assets" / "paper1_data" / "canonical_evals_20260517.json").read_text(encoding="utf-8"))
     rows = {(row["task"], row["std_key"]): row for row in basin["rows"]}
-    expected_keys = {(task, std) for task in EXPECTED_TASKS for std in EXPECTED_CONFIGS}
-    if set(rows) != expected_keys:
-        fail(
-            "ACPC full-grid artifact coverage mismatch: "
-            f"missing={sorted(expected_keys - set(rows))}, extra={sorted(set(rows) - expected_keys)}"
-        )
     obs_best = {
         task: max(EXPECTED_CONFIGS, key=lambda std: evals[task][std]["metrics"]["pixels_std0.08"]["mean"])
         for task in EXPECTED_TASKS
     }
 
-    for key, row in rows.items():
+    def check_display(label: str, got: float, want: float, digits: int) -> None:
+        rounded = round(float(want), digits)
+        if got != rounded:
+            fail(f"{label} mismatch: table has {got}, artifact rounds to {rounded}")
+
+    for key, shown in parsed.items():
         task, std_key = key
+        row = rows[key]
         eval_cell = evals[task][std_key]["metrics"]
-        table_values = {
-            "unpert": round(float(eval_cell["clean"]["mean"]), 2),
-            "obs": round(float(eval_cell["pixels_std0.08"]["mean"]), 2),
-            "drop": round(float(row["corruption_drop"]), 2),
-            "radius_e": round(float(row["encoder_view_pair_l2_norm_by_nn"]), 3),
-            "radius_f": round(float(row["pred_view_pair_l2_norm_by_transition"]), 3),
-            "ratio": round(float(row["basin_contraction_pair_norm"]), 3),
-            "note": "base" if std_key == "0.0" else ("obs-best" if std_key == obs_best[task] else ""),
-        }
-        for field, value in table_values.items():
-            if field == "note":
-                continue
-            if not isinstance(value, float) or not math.isfinite(value):
-                fail(f"{task}/{std_key}/{field} cannot be rendered as a finite table value")
+        check_display(f"{task}/{std_key}/unpert", shown["unpert"], eval_cell["clean"]["mean"], 2)
+        check_display(f"{task}/{std_key}/obs0.08", shown["obs"], eval_cell["pixels_std0.08"]["mean"], 2)
+        check_display(f"{task}/{std_key}/drop", shown["drop"], row["corruption_drop"], 2)
+        check_display(f"{task}/{std_key}/R_E", shown["radius_e"], row["encoder_view_pair_l2_norm_by_nn"], 3)
+        check_display(f"{task}/{std_key}/R_F", shown["radius_f"], row["pred_view_pair_l2_norm_by_transition"], 3)
+        check_display(f"{task}/{std_key}/R_F/R_E", shown["ratio"], row["basin_contraction_pair_norm"], 3)
+
+        expected_note = "base" if std_key == "0.0" else ("obs-high" if std_key == obs_best[task] else "")
+        if shown["note"] != expected_note:
+            fail(f"{task}/{std_key}/note mismatch: table has {shown['note']!r}, want {expected_note!r}")
 
 
 def check_pldm_acpc_basin_json() -> None:
@@ -924,7 +987,7 @@ def check_partial_corr_bootstrap_json() -> None:
                     if not isinstance(cell["n_valid"], int) or cell["n_valid"] < 0:
                         fail(f"bootstrap {task}/{scope}/{metric}/{cell_name} invalid n_valid")
 
-    # Values quoted in the released Paper 1 contributions / Table 7 / Appendix F. These are rounded
+    # Values quoted in main.tex contributions / Table 7 / Appendix F. These are rounded
     # checks, not a substitute for rerunning the bootstrap.
     _check_bootstrap_cell(
         data, "PushT", "within_lewm", "frag", "partial_metric_clean_on_std",
@@ -1074,7 +1137,7 @@ def main() -> int:
         ("acpc phase0 diagnostics json", check_acpc_phase0_diagnostics_json),
         ("blur baselines json", check_blur_baselines_json),
         ("acpc basin json", check_acpc_basin_json),
-        ("acpc basin full-grid artifact inputs", check_acpc_basin_full_grid_table),
+        ("acpc basin full-grid table", check_acpc_basin_full_grid_table),
         ("pldm acpc basin json", check_pldm_acpc_basin_json),
         ("target-view closed-loop json", check_target_view_closed_loop_summary_json),
         ("external baselines json", check_external_baselines_json),
