@@ -31,17 +31,14 @@ This codebase builds on [stable-worldmodel](https://github.com/galilai-group/sta
 
 ## Paper 1 Reproduction
 
-This branch also contains the Paper 1 robustness study release:
+This branch also contains the code-facing Paper 1 robustness study release:
 
 - canonical result artifacts: `assets/paper1_data/`
 - generated reference figures: `assets/paper1_figs/`
 - training, eval, and diagnostics scripts: `run_trainer.sh`, `eval.py`, and `tools/`
-- reproducibility instructions: [`PAPER1_REPRODUCTION.md`](PAPER1_REPRODUCTION.md)
 
-For the full Paper 1 training/eval/diagnostic sweep, start from
-`PAPER1_REPRODUCTION.md` rather than the minimal upstream-style examples below.
-The manuscript source and arXiv packaging files are intentionally not included
-in this public code branch.
+The manuscript source, paper-facing documentation, and arXiv packaging files
+are intentionally not included in this public code branch.
 
 **Installation:**
 ```bash
