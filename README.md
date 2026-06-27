@@ -1,6 +1,7 @@
+# LeWorldModel ACPC Diagnostics
+### Paper companion fork of LeWorldModel
 
-# LeWorldModel
-### Stable End-to-End Joint-Embedding Predictive Architecture from Pixels
+This repository is a fork of [LeWorldModel](https://github.com/lucas-maes/le-wm), extended with the ACPC/Gaussian-noise robustness diagnostics, evaluation artifacts, and scripts used by the companion diagnostic study. The original LeWM model, citation, and upstream links are retained below for attribution.
 
 [Lucas Maes*](https://x.com/lucasmaes_), [Quentin Le Lidec*](https://quentinll.github.io/), [Damien Scieur](https://scholar.google.com/citations?user=hNscQzgAAAAJ&hl=fr), [Yann LeCun](https://yann.lecun.com/) and [Randall Balestriero](https://randallbalestriero.github.io/)
 
